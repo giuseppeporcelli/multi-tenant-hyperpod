@@ -1,0 +1,42 @@
+# /etc/sudoers.d/mg-multi-tenant
+#
+# Multi-tenant HyperPod Slurm: group-based sudo policy.
+#
+# Install this drop-in on every cluster node (via HyperPod lifecycle scripts
+# recommended). The file must be owned root:root with mode 0440.
+#
+# Tiers:
+#   - Admin group          : full sudo, all commands, no password.
+#   - TeamA-leads group    : sudo only for select Slurm job-management commands.
+#   - TeamB-leads group    : same, isolated per team by group membership.
+#   - Regular team users   : no sudo (implicit — nothing granted below).
+#
+# For fine-grained per-team enforcement (a TeamA lead can only cancel TeamA
+# jobs), wrap scancel in a script that reads the job's Account field via
+# `scontrol show job` and rejects mismatches. The coarse Cmnd_Alias below
+# is sufficient for most operator workflows.
+
+# ----- Full sudo for cluster operators -----
+%Admin ALL=(ALL) NOPASSWD: ALL
+
+# ----- Allowed Slurm commands for team leads -----
+Cmnd_Alias SLURM_LEAD_CMDS = /opt/slurm/bin/scontrol update job *, \
+                             /opt/slurm/bin/scontrol requeue *, \
+                             /opt/slurm/bin/scontrol hold *, \
+                             /opt/slurm/bin/scontrol release *, \
+                             /opt/slurm/bin/scancel *
+
+# HyperPod installs Slurm under a versioned prefix (/opt/slurm-<version>/).
+# List common paths so the policy works whether /opt/slurm is a symlink or
+# the versioned directory is invoked directly.
+Cmnd_Alias SLURM_LEAD_CMDS_VER = /opt/slurm-*/bin/scontrol update job *, \
+                                 /opt/slurm-*/bin/scontrol requeue *, \
+                                 /opt/slurm-*/bin/scontrol hold *, \
+                                 /opt/slurm-*/bin/scontrol release *, \
+                                 /opt/slurm-*/bin/scancel *
+
+# ----- Team-lead groups -----
+%TeamA-leads ALL=(ALL) NOPASSWD: SLURM_LEAD_CMDS, SLURM_LEAD_CMDS_VER
+%TeamB-leads ALL=(ALL) NOPASSWD: SLURM_LEAD_CMDS, SLURM_LEAD_CMDS_VER
+
+# Regular team users (TeamA, TeamB): no sudo granted (implicit deny).

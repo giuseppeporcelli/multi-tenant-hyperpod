@@ -132,11 +132,46 @@ The foundation of Slurm-level isolation is the Linux user and group model. Users
 
 2. **User creation** — For each user profile within a domain, create a Linux user on all cluster nodes. The username is extracted from the `SingleSignOnUserValue` attribute (e.g., the local part of `user1@domain.com` yields username `user1`), and the UID matches the value configured in `CustomPosixUserConfig` at the user profile level.
 
-3. **Group membership** — Each user is added to their team's Linux group as their primary group. This means User 1 (UID `20001`) belongs to group `TeamA` (GID `2001`), and User 2 (UID `30001`) belongs to group `TeamB` (GID `3001`).
+3. **Group membership** — Each user is added to their team's Linux group as both their primary group and as a supplementary member. This means User 1 (UID `20001`) belongs to group `TeamA` (GID `2001`), and User 2 (UID `30001`) belongs to group `TeamB` (GID `3001`).
+
+   Supplementary membership (in addition to primary GID) is required because Slurm's `AllowGroups` directive resolves group membership by reading the supplementary member list in `/etc/group` — not the primary GID stored in `/etc/passwd`. A user created with only a primary GID will be invisible to `AllowGroups`, causing the partition to fail open. The `create_users_sm_domain.py` provisioning script handles this automatically by running `usermod -aG` after each user is created.
+
+4. **Home directory permissions** — Each user's home directory is created at mode `750` by the provisioning script, making it readable by other members of the same team group. If you need complete isolation between team members — so that no user can read another's home directory — change the `chmod` call in `create_users_sm_domain.py` to use mode `700`.
 
 4. **Consistency across nodes** — The same users and groups must exist on all cluster nodes (head node, compute nodes, login nodes) to ensure that Slurm can correctly schedule and execute jobs under the appropriate identity. This can be achieved through lifecycle scripts that run during node provisioning, or through centralized user management tools.
 
 This approach creates a direct mapping between the corporate identity (managed in Entra ID and Identity Center), the SageMaker Domain configuration (which stores UIDs and GIDs), and the Linux identities on the cluster (which Slurm uses for job scheduling and file system permissions).
+
+### Operator Privileges: Group-based sudo
+
+Multi-tenant clusters typically need three tiers of Linux privilege:
+
+- **Admins** (`Admin` group) — full `sudo` for cluster operations: package installs, service restarts, `slurmctld` management, log inspection.
+- **Team leads** (`TeamA-leads`, `TeamB-leads` groups) — `sudo` for select Slurm job-management commands: `scancel`, `scontrol update job`, `scontrol requeue`, `scontrol hold`, `scontrol release`. This lets a team lead intervene when a colleague's job is stuck, without giving them full root.
+- **Regular team users** (`TeamA`, `TeamB` groups) — no `sudo`. They submit jobs, read their team dir, and manage their own home dir.
+
+Team-lead groups are **supplementary** — a user's primary GID stays with their team (`TeamA`), and they are added to `TeamA-leads` as an additional group. Promoting or demoting a lead is a single `usermod -aG` / `gpasswd -d` operation without disturbing their team membership.
+
+Install the following drop-in on every cluster node at `/etc/sudoers.d/mg-multi-tenant` (owner `root:root`, mode `0440`). The file is provided in the repository at `scripts/sudoers.d/mg-multi-tenant`. Install it via a HyperPod lifecycle script so that dynamically-provisioned compute nodes receive it automatically:
+
+```
+# Full sudo for the Admin group
+%Admin ALL=(ALL) NOPASSWD: ALL
+
+# Allowed Slurm commands for team leads
+Cmnd_Alias SLURM_LEAD_CMDS = /opt/slurm/bin/scontrol update job *, \
+                             /opt/slurm/bin/scontrol requeue *, \
+                             /opt/slurm/bin/scontrol hold *, \
+                             /opt/slurm/bin/scontrol release *, \
+                             /opt/slurm/bin/scancel *
+
+%TeamA-leads ALL=(ALL) NOPASSWD: SLURM_LEAD_CMDS
+%TeamB-leads ALL=(ALL) NOPASSWD: SLURM_LEAD_CMDS
+
+# Regular team users: no sudo granted (implicit deny).
+```
+
+The `Cmnd_Alias` construct makes the allowed commands explicit and auditable via `sudo -l`. Note that this coarse policy allows a `TeamA-leads` member to `scancel` a `TeamB` job. For strict per-team enforcement, wrap `scancel` in a script that reads the job's `Account` field via `scontrol show job` and rejects mismatches.
 
 ### Partition Isolation with AllowGroups
 
@@ -155,6 +190,8 @@ With this configuration:
 - Users in the `TeamA` Linux group can only submit jobs to `partition-team-a`.
 - Users in the `TeamB` Linux group can only submit jobs to `partition-team-b`.
 - Attempting to submit a job to another team's partition results in a Slurm permission error.
+
+> **Note on group membership and cache refresh:** Slurm enforces `AllowGroups` using the supplementary member list in `/etc/group`. The `create_users_sm_domain.py` script ensures each user is added as a supplementary group member automatically. After provisioning users or updating group memberships, run `sudo scontrol reconfig` on the controller node so that `slurmctld` refreshes its group cache — the provisioning script prints this reminder at the end of each run.
 
 This provides workload isolation that is conceptually similar to namespace-scoped RBAC in the EKS architecture. Each team can only consume resources from their designated partition, and they cannot interfere with or observe jobs running in another team's partition.
 
@@ -177,9 +214,114 @@ sacctmgr add user user1 Account=TeamA
 sacctmgr add user user2 Account=TeamB
 ```
 
+### QoS: Per-team Job Limits
+
+Slurm's QoS (Quality of Service) framework attaches quantitative limits to Slurm accounts. Where `AllowGroups` gives binary access to a partition, QoS lets you say "TeamA can run at most 10 concurrent jobs, no single job longer than 24h, with base priority 100." QoS complements — rather than replaces — partition-level `AllowGroups`: `AllowGroups` decides *who can submit*, QoS decides *how much they can consume*.
+
+Create a QoS for each team and attach it to the team's account:
+
+```
+sacctmgr -i add qos team-a-qos MaxJobs=10 MaxSubmitJobs=100 MaxWall=24:00:00 Priority=100
+sacctmgr -i add qos team-b-qos MaxJobs=10 MaxSubmitJobs=100 MaxWall=24:00:00 Priority=100
+sacctmgr -i modify account teama set QoS=team-a-qos
+sacctmgr -i modify account teamb set QoS=team-b-qos
+```
+
+Key limit types:
+
+- `MaxJobs` — maximum concurrently *running* jobs per user. Enforced at scheduling time; overflow jobs stay in the queue with reason `QOSMaxJobsPerUserLimit`.
+- `MaxSubmitJobs` — maximum jobs a user can have *in the queue at all* (running + pending). Enforced at submission time; `sbatch` returns non-zero and prints `QOSMaxSubmitJobPerUserLimit`.
+- `MaxWall` — maximum wall time per job.
+- `Priority` — base priority added to the job's scheduling priority.
+
+For enforcement, `slurm.conf` must include:
+
+```
+AccountingStorageEnforce=qos,limits,associations
+```
+
+Run `sudo scontrol reconfig` on the controller after changing `slurm.conf`. When a user submits an 11th concurrent job to TeamA, Slurm holds the job with reason `QOSMaxJobs`. Jobs stay in the queue and are released as running jobs complete.
+
+For fair-share scheduling, priority weighting, preemption, TRES billing weights, and QoS-based cost allocation, see the [Slurm GPU Chargeback & Cost Allocation guide](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/slurm-gpu-chargeback--cost-allocation).
+
+## Slurm Accounting for Team-level Attribution and Chargeback
+
+In a multi-tenant cluster, knowing *who used what* is as important as enforcing *who can access what*. Slurm's built-in accounting system — backed by `slurmdbd` — tracks every job against a named account. This is the foundation for team-level GPU attribution and, from there, cost chargeback.
+
+### How Accounting Fits with SageMaker Studio Users
+
+Each SageMaker Domain maps to a Linux group (`TeamA`, `TeamB`). The same team names are used as Slurm accounts, creating a clean three-layer identity chain:
+
+```
+SageMaker Domain (TeamA)
+    → Linux group TeamA (GID 2001)
+        → Slurm account teama
+            → sacct records: Account=teama, User=user1-teama
+```
+
+When a Studio user connects via SSM and submits a job, the job is automatically attributed to their Slurm account. No manual tagging is needed — the Linux identity established at session start (via `SSMSessionRunAs`) flows directly into Slurm accounting.
+
+### Setting Up Accounts and Associations
+
+Create one Slurm account per team and associate each Linux user with their team's account. Run these commands on the controller node:
+
+```bash
+# Create accounts (one per team)
+sacctmgr -i add account TeamA Description="Team A" Organization="MyOrg"
+sacctmgr -i add account TeamB Description="Team B" Organization="MyOrg"
+sacctmgr -i add account Admin  Description="Admin"  Organization="MyOrg"
+
+# Associate users with accounts
+sacctmgr -i add user user1-teama Account=TeamA DefaultAccount=TeamA
+sacctmgr -i add user user2-teamb Account=TeamB DefaultAccount=TeamB
+sacctmgr -i add user mayank       Account=Admin  DefaultAccount=Admin
+
+# Verify
+sacctmgr show user withAssoc format=User,Account,DefaultAccount
+```
+
+> **Note on account name case:** `sacctmgr` normalises account names to lowercase regardless of how they are entered. `TeamA` is stored and displayed as `teama`. All `sacctmgr` queries are case-insensitive, but tools like `sacct` and `sreport` will output lowercase names. This does not affect functionality — the Linux group name (`TeamA`, mixed case) and the Slurm account name (`teama`, lowercase) are separate identifiers.
+
+### Verifying Attribution
+
+After a job completes, verify that it was charged to the correct account:
+
+```bash
+# Check account for a specific job
+sacct -j <job_id> --format=JobID,User,Account,Partition,State,Elapsed
+
+# Export all jobs for a time window as pipe-delimited CSV
+sacct -a -X -P \
+  --starttime=2026-08-01 --endtime=2026-08-31 \
+  --state=COMPLETED,FAILED,CANCELLED,TIMEOUT \
+  --format=JobID,User,Account,Partition,AllocTRES,Elapsed,State \
+  > /fsx/reports/jobs-august.csv
+```
+
+The `Account` field in `sacct` output confirms which team's budget is being charged for each job. For Studio users, this will match their domain's team name (lowercase).
+
+### Chargeback: From Attribution to Cost Allocation
+
+The setup above gives you accurate per-team GPU attribution. Translating GPU-hours into dollar costs — and building dashboards for stakeholders — requires additional components: automated report generation, S3 export, CUR-based cost allocation, and QuickSight visualisation.
+
+A complete, production-tested implementation of this chargeback pipeline is documented in the **[Slurm GPU Chargeback & Cost Allocation](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/slurm-gpu-chargeback--cost-allocation)** guide, which covers:
+
+- Account hierarchy setup with parent/child accounts for sub-teams
+- Fair-share scheduling, QoS, priority, and preemption configuration
+- Bulk user import and optional LDAP sync
+- Job tagging strategy for project-level cost allocation (beyond team-level)
+- Automated `sreport` and `sacct` data extraction scripts
+- S3 upload automation with cron scheduling
+- Cost allocation from the AWS Cost and Usage Report (CUR)
+- QuickSight dashboards for visualising GPU utilisation per team
+
+The foundation established in this blog — per-team Linux groups, Slurm accounts, and user associations — is a direct prerequisite for that pipeline. Once the accounts and associations are in place, the chargeback guide can be followed without modification.
+
 ## SSM Session Access
 
 Users in the Slurm architecture connect to the cluster's login nodes via AWS Systems Manager (SSM) sessions. As a best practice, users should connect to dedicated login nodes rather than the head node — login nodes are designed to handle interactive user sessions and job submission, while the head node should be reserved for cluster management and Slurm controller operations. SSM provides a managed, secure connection without requiring inbound firewall rules or SSH key management.
+
+> **Note:** SSM maps the incoming identity to a Linux user via the `SSMSessionRunAs` attribute. For this to succeed, the Linux user must already exist on the target node at the time of the session. Team users are provisioned automatically by `create_users_sm_domain.py` (see Appendix B). Operators or admins who are not backed by a SageMaker Domain — such as cluster bootstrap engineers or on-call administrators — must have their Linux accounts created out-of-band (for example, via lifecycle scripts or a one-time `useradd` on all nodes) before their first SSM session.
 
 ### SSMSessionRunAs Configuration
 
@@ -211,6 +353,69 @@ id       # uid=20001(user1) gid=2001(TeamA) groups=2001(TeamA)
 
 # Submit a Slurm job
 sbatch --partition=partition-team-a my_training_job.sh
+```
+
+## Optional: SSH Access with Group-based Node Restrictions
+
+SSM sessions are the primary and recommended path for connecting to cluster nodes. There are, however, workflows that benefit from a native SSH connection: driving a remote IDE against a compute node, `scp`/`rsync` of large local files, or forwarding a Jupyter/TensorBoard port from a training run. This section shows how to enable SSH while preserving team isolation via `sshd`'s `AllowGroups` directive.
+
+### Per-Node Access Model
+
+Each node role permits a different set of Linux groups:
+
+| Node role      | AllowGroups                                       |
+|----------------|---------------------------------------------------|
+| controller     | `Admin`                                           |
+| login          | `Admin`, `mg-domain-teamA`, `mg-domain-teamB`     |
+| compute-team-a | `Admin`, `mg-domain-teamA`                        |
+| compute-team-b | `Admin`, `mg-domain-teamB`                        |
+
+A TeamA user can SSH into the login node and into compute-team-a nodes, but not into compute-team-b or the controller. Admins have SSH into all nodes. Regular team users cannot SSH into the controller.
+
+### Configuration
+
+The script `scripts/configure_sshd_multi_tenant.sh` writes `/etc/ssh/sshd_config.d/50-mg-multi-tenant.conf` with the correct `AllowGroups` value for the node's role, then restarts `sshd`. The node role is auto-detected from `/opt/ml/config/resource_config.json` (or falls back to hostname pattern match). Invoke this script from a HyperPod lifecycle script so newly-provisioned compute nodes receive the policy automatically:
+
+```
+AllowGroups Admin mg-domain-teamA        # example for compute-team-a
+PubkeyAuthentication yes
+PasswordAuthentication no
+```
+
+Users' SSH public keys live in `~/.ssh/authorized_keys` on their FSx-backed home directory. Since FSx is mounted on every node, adding a public key once grants access to every node the user's group is allowed on — no per-node key distribution needed.
+
+### Two Exposure Modes
+
+Both modes rely on the same `sshd_config` `AllowGroups` restriction — only the transport differs.
+
+**Option 1 — SSH via SSM tunnel (recommended).** No inbound port is opened on the node's security group. The SSH client uses the `AWS-StartSSHSession` SSM document to tunnel through the SSM agent that is already running on every HyperPod node:
+
+```
+# ~/.ssh/config on the developer machine
+Host cluster-login
+  HostName <login-instance-id>
+  User user1-teama
+  ProxyCommand aws ssm start-session \
+    --target %h \
+    --document-name AWS-StartSSHSession \
+    --parameters portNumber=%p \
+    --profile team-a-profile
+
+# Then:
+ssh cluster-login
+```
+
+This keeps the cluster's security-group ingress closed on port 22 and reuses the existing SSM authentication path (SSO via IAM Identity Center). The `sshd` `AllowGroups` restriction still applies — SSM tunneling is only the transport; group-based access control is enforced by `sshd` on the node.
+
+**Option 2 — Direct SSH on port 22 (advanced).** Open TCP 22 in the cluster's security group from your VPC's CIDR (or a bastion host), and users connect with a standard `ssh user@<node-ip>`. This is only recommended when the corporate network already terminates into the VPC (Direct Connect, Site-to-Site VPN) or when you have a hardened bastion. Otherwise Option 1 is strictly better security-wise: no inbound port to expose, no security-group rule to maintain, and SSM's IAM-based authentication is used instead of standalone key management.
+
+Security-group rule for Option 2 (example, restricting to a bastion SG):
+
+```
+aws ec2 authorize-security-group-ingress \
+  --group-id <cluster-sg-id> \
+  --protocol tcp --port 22 \
+  --source-group <bastion-sg-id>
 ```
 
 ## Storage
@@ -522,7 +727,7 @@ Given a SageMaker domain ID, `scripts/create_users_sm_domain.py` performs the fo
 |--------|-----------|---------|
 | Domain name | e.g., `TeamA` | Linux group name |
 | Domain-level `CustomPosixUserConfig` | GID (e.g., `2001`) | Linux group GID |
-| User profile `SingleSignOnUserValue` | e.g., `user1@domain.com` | Linux username (e.g., `user1`) |
+| User profile `SingleSignOnUserValue` | e.g., `user1@domain.com` | Linux username (e.g., `user1`); falls back to `UserProfileName` for IAM-auth domains where this field is absent |
 | User profile `CustomPosixUserConfig` | UID (e.g., `20001`) | Linux user UID |
 
 ## Usage
@@ -542,6 +747,8 @@ sudo ./scripts/run_create_users.sh d-abcdef0123456 --region us-west-2 --verbose
 # Using a specific AWS CLI profile
 sudo ./scripts/run_create_users.sh d-abcdef0123456 --profile admin
 ```
+
+> **Bootstrap note:** The script runs as root and does not require any team user to pre-exist on the node. For initial cluster setup, invoke it from a privileged session — either via a lifecycle script that runs automatically during node provisioning (recommended for production; see the Integration section below), or interactively via an SSM session authenticated as the default OS user (e.g., `ubuntu`) before per-user identities have been configured.
 
 For a multi-team cluster, run the script once per domain:
 
