@@ -4,9 +4,9 @@
 
 Amazon SageMaker HyperPod is a purpose-built AI service that simplifies the management of large-scale compute clusters for generative AI (gen AI) workloads. It provides resilient, optimized clusters with Kubernetes (Amazon EKS) or Slurm orchestration, enabling organizations to run distributed training, interactive development, and model inference at scale — while automatically handling node health monitoring, fault recovery, and cluster lifecycle management.
 
-As organizations scale their gen AI operations, a common challenge emerges: multiple teams within the same company need shared access to expensive GPU clusters while maintaining security boundaries, resource fairness, and operational independence. A data science team training large language models, a computer vision group running inference workloads, and a research team experimenting with new architectures — all may need access to the same HyperPod cluster. Without a well-designed multi-tenant architecture, organizations face uncontrolled resource consumption, weak isolation between teams, and administrative overhead that slows down innovation.
+As organizations scale their gen AI operations, a common challenge emerges: multiple teams within the same company need shared access to expensive GPU clusters while maintaining isolation boundaries, resource fairness, and operational independence. A data science team training large language models, a computer vision group running inference workloads, and a research team experimenting with new model architectures — all may need access to the same HyperPod cluster. Without a well-designed multi-tenant architecture, organizations face uncontrolled resource consumption, weak isolation between teams, an inability to attribute shared GPU costs to the teams that incur them, and administrative overhead that slows down innovation.
 
-In this post, we present a reference architecture for building a multi-tenant environment on Amazon SageMaker HyperPod with EKS. This architecture leverages AWS Identity Center for centralized authentication, per-team SageMaker Domains for a tailored user experience, Kubernetes namespaces for workload isolation, and HyperPod Task Governance for fair resource allocation. By the end of this guide, you will have a clear blueprint for enabling multiple teams to securely and efficiently share a single HyperPod EKS cluster.
+In this post, we present a reference architecture for building a multi-tenant environment on Amazon SageMaker HyperPod with EKS. This architecture leverages AWS Identity Center for centralized authentication, per-team SageMaker Domains for a tailored user experience, Kubernetes namespaces for workload isolation, HyperPod Task Governance for fair resource allocation, and namespace-level cost allocation for per-team spend visibility and chargeback. By the end of this guide, you will have a clear blueprint for enabling multiple teams to efficiently share a single HyperPod EKS cluster.
 
 ## Architecture Overview
 
@@ -76,10 +76,10 @@ Each team requires a dedicated IAM role that encapsulates the AWS-level permissi
 
 A typical team IAM role should include policies granting access to:
 
-- **Amazon SageMaker** — For managing HyperPod resources, Spaces, training jobs, and endpoints through the SageMaker API.
+- **Amazon SageMaker** — For managing HyperPod clusters, MLflow tracking servers, and other SageMaker resources through the SageMaker API.
 - **Amazon S3** — For reading training datasets and writing model artifacts, checkpoints, and logs. Scope these permissions to team-specific bucket prefixes.
 - **Amazon CloudWatch** — For viewing logs and metrics related to the team's workloads.
-- **Amazon EKS** — Specifically, the `eks:InvokeKubernetesApi` permission, which is critical for enabling the SageMaker Studio GUI to make Kubernetes API calls on behalf of the user (for example, listing Spaces or submitting jobs).
+- **Amazon EKS** — Specifically, the `eks:AccessKubernetesApi` and `eks:MutateViaKubernetesApi` permissions, which are critical for enabling the SageMaker Studio GUI to make Kubernetes API calls on behalf of the user (for example, listing Spaces or submitting jobs).
 
 The trust policy on each IAM role must include `sagemaker.amazonaws.com` as a trusted principal, allowing SageMaker to assume the role on behalf of users when they operate through Studio. CLI access via Identity Center uses a separate permission set with its own policies (see "AWS Account Access via Identity Center" below), allowing CLI permissions to be independently scoped.
 
@@ -91,7 +91,7 @@ Beyond SageMaker Studio, teams often need direct AWS account access for CLI oper
 
 For the **Admin** group, assign a permission set with administrative access as required by your company policies, granting the necessary account access for cluster management and administrative operations.
 
-For **Team A** and **Team B**, create permission sets with inline or managed policies that grant the permissions needed for CLI workflows directly. A typical team permission set includes permissions for `eks:InvokeKubernetesApi` (to interact with the EKS cluster), scoped S3 access for the team's data, and CloudWatch read access for monitoring. These policies are defined independently from the Studio execution role, allowing administrators to tailor CLI permissions to the specific operations teams perform from the command line.
+For **Team A** and **Team B**, create permission sets with inline or managed policies that grant the permissions needed for CLI workflows directly. A typical team permission set includes permissions for `eks:AccessKubernetesApi` (to view Kubernetes resources from AWS Console), scoped S3 access for the team's data, and CloudWatch read access for monitoring. These policies are defined independently from the Studio execution role, allowing administrators to tailor CLI permissions to the specific operations teams perform from the command line.
 
 Users retrieve temporary credentials via the AWS CLI using `aws sso login`, which they can then use to configure `kubectl` for direct interaction with the EKS cluster.
 
@@ -143,7 +143,7 @@ Using one SageMaker Domain per team is a well-established pattern for organizing
 
 - **Established multi-team pattern** — AWS has documented this approach extensively for separating lines of business or teams with multiple domains, making it a proven and supported configuration.
 - **Native Identity Center authentication** — Each domain can be configured with Identity Center authentication, meaning users sign in once through their corporate identity provider and land directly in their team's Studio environment.
-- **Built-in team configuration** — Domains already provide mechanisms to specify configurations for users and teams without requiring additional custom entities. For example, `CustomPosixUserConfig` can be used to assign specific UIDs and GIDs to users, which is essential for POSIX file system permissions on shared storage.
+- **Built-in team configuration** — Domains already provide mechanisms to specify configurations for users and teams without requiring additional custom entities. For example, settings like team role can be specified at domain level, and overridden at user profile level for maximum flexibility.
 - **Navigation customization** — Domain settings allow administrators to hide navigation items that are not relevant to the team's workflows, presenting a focused interface tailored to HyperPod use cases.
 
 *Learn more: [SageMaker AI domain entities and statuses](https://docs.aws.amazon.com/sagemaker/latest/dg/sm-domain.html) · [Multiple domains overview](https://docs.aws.amazon.com/sagemaker/latest/dg/domain-multiple.html)*
@@ -231,7 +231,13 @@ The storage layout typically follows this structure:
 - **Per-team shared directories** — Each team has a shared directory (e.g., `/fsx/TeamA`, `/fsx/TeamB`) for datasets, models, and artifacts that all team members need to access.
 - **Per-user home directories** — Each user has a personal home directory (e.g., `/home/User1`, `/home/User2`) for individual work, experiments, and notebooks.
 
-The POSIX permission model on these file systems relies on UIDs, GIDs, and supplemental groups to enforce access boundaries. SageMaker Domains support `CustomPosixUserConfig`, which allows administrators to assign specific UIDs and GIDs to users. These POSIX identities should then be propagated to the pod's security context when a user launches a HyperPod Space or submits a training job, ensuring that file system access respects the configured ownership and permissions.
+The POSIX permission model on these file systems relies on UIDs, GIDs, and supplemental groups to enforce access boundaries.
+These POSIX identities should then be propagated to the pod's security context when a user launches a HyperPod Space or submits a training job, ensuring that file system access respects the configured ownership and permissions.
+We recommend using a Kubernetes mutating admission webhook to retrieve POSIX identity information from your identity store at runtime when a workload is submitted, and modify the security context of the Pod accordingly.
+
+```
+<Add webhook code snippet>
+```
 
 *Learn more: [FSx for Lustre](https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html) · [FSx for OpenZFS](https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/what-is-fsx.html) · [Amazon EFS](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html)*
 
@@ -251,6 +257,10 @@ Create namespace-scoped Space templates for each team. These templates define th
 
 When HyperPod Task Governance is enabled, templates should include the default labels required by the governance system (such as team identifier and priority labels). The cluster administrator pre-configures these labels so that team members do not need to specify them manually when launching Spaces.
 
+```
+<Add space template YAML example>
+```
+
 ### Persistent Volume Claims
 
 Create the appropriate Persistent Volume Claims (PVCs) in each team's namespace, referencing the shared file system. These PVCs mount the team's shared directory and the user's home directory into the Space, providing access to training data, checkpoints, and personal workspaces.
@@ -262,20 +272,6 @@ Consider your organization's requirements around Space sharing:
 - **Owner-only Spaces** — Each Space is accessible only by the user who created it. This is the default and most secure configuration, appropriate when teams work on sensitive or independent projects.
 - **Shared Spaces** — Multiple team members can access the same Space, useful for pair programming, collaborative debugging, or shared development environments. When enabling shared Spaces, ensure that POSIX permissions and supplemental groups are configured to allow appropriate access to files created within the Space.
 
-### Connectivity: SSM vs. SSH
-
-HyperPod Spaces support two connectivity methods for remote IDE access:
-
-- **AWS Systems Manager (SSM)** — Provides a managed, secure connection without requiring inbound firewall rules or SSH key management. SSM sessions are authenticated via IAM, making them a natural fit for this architecture where access is already controlled through IAM roles.
-- **SSH** — Provides traditional SSH access for tools and workflows that require it. Requires additional key management and network configuration.
-
-SSM is generally recommended for multi-tenant environments due to its tighter integration with IAM-based access control.
-
-*Learn more: [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)*
-
-### Consistency Between Studio GUI and CLI
-
-Users should be able to create and manage Spaces either from the SageMaker Studio GUI or from the command line with `kubectl`, and the results should be consistent. Although Studio and CLI use different IAM principals (the Studio execution role and the SSO-provisioned role respectively), both have EKS access entries scoped to the same team namespace. This ensures that Spaces created from either interface appear in the same namespace. Note that the RBAC policies on each access entry may differ intentionally — for example, CLI access might be scoped to a subset of operations while Studio retains broader permissions within the namespace.
 
 ## HyperPod Training Operator
 
@@ -284,6 +280,10 @@ The HyperPod Training Operator enables teams to submit distributed training jobs
 Teams can submit training jobs from the CLI using `kubectl apply` with the appropriate job manifest. The job runs in the team's namespace, uses the team's compute quotas (if Task Governance is enabled), and has access to the team's storage volumes.
 
 When Task Governance is enabled, training jobs are subject to the team's allocated quotas and priority settings. If a team has consumed its guaranteed allocation, jobs may be queued until resources become available or until lower-priority workloads are preempted.
+
+```
+<Add CRD example, only what matters>
+```
 
 *Learn more: [Using the HyperPod training operator](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-eks-operator.html)*
 
@@ -294,6 +294,10 @@ The HyperPod Inference Operator allows teams to deploy models as inference endpo
 Teams can deploy models from the CLI by creating inference endpoint custom resources in their namespace. The endpoints are isolated per namespace, meaning Team A cannot access or interfere with Team B's inference endpoints.
 
 For production inference workloads that require high availability, consider assigning higher scheduling priority to inference endpoints than to training jobs, ensuring that model serving is not interrupted by batch training workloads.
+
+```
+<Add CRD example, only what matters>
+```
 
 *Learn more: [Deploying models on Amazon SageMaker HyperPod](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment.html)*
 
@@ -313,253 +317,36 @@ Teams need access to observability dashboards to monitor their workloads, troubl
 
 4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by namespace, allowing each team to see only their own workload metrics. Grafana Teams can potentially be leveraged to restrict dashboard visibility to specific groups, providing an additional layer of data isolation.
 
+```
+<Add screenshot from Amazon Managed Grafana configuration>
+```
+
 *Learn more: [Observability for Amazon SageMaker HyperPod cluster orchestrated by Amazon EKS](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-eks-cluster-observability.html)*
 
-## Getting Started
+## Cost Allocation and Chargeback
 
-To simplify the deployment of this multi-tenant architecture, we recommend an infrastructure-as-code approach that automates the provisioning of all per-team resources. A CloudFormation template or CDK stack can be designed to accept a team name as input and automatically create:
+In a multi-tenant environment where teams share expensive GPU infrastructure, understanding who consumes what is essential for accountability, budgeting, and chargeback. [Kubecost](https://github.com/kubecost) addresses this need by breaking down in-cluster spend across native Kubernetes concepts — namespace, label, deployment, and service — and mapping it to organizational concepts like team, project, or environment.
 
-- The team IAM role with appropriate policies and trust relationships
-- The Identity Center permission set with CLI-specific policies for the team
-- The SageMaker Domain with Identity Center authentication and group assignment
-- The Kubernetes namespace within the HyperPod EKS cluster
-- The EKS access entries with namespace-scoped policies (one for the Studio execution role, one for the SSO-provisioned CLI role)
-- Task Governance configuration (quotas and priorities)
-- HyperPod Space templates within the team namespace
-- Persistent Volume Claims for shared and home directories
-- Storage directories on the shared file system
-- A default S3 bucket or prefix for the team
+Because this architecture already isolates each team in a dedicated namespace (`hyperpod-ns-team-a`, `hyperpod-ns-team-b`), namespace-level cost allocation aligns directly with team boundaries. This gives platform administrators a clear per-team view of GPU, CPU, memory, storage, and network consumption without any additional workload tagging. For step-by-step instructions on deploying and configuring Kubecost on a HyperPod cluster, see [Kubecost on SageMaker HyperPod](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/kubecost-on-sagemaker-hyperpod).
 
-This approach reduces the administrative overhead of onboarding new teams from a multi-step manual process to a single deployment action, reducing errors and ensuring consistency across teams.
+### Enabling Team Visibility
+
+Once Kubecost is collecting data, group cost by namespace in the Allocations dashboard to see per-team spend. Because each team owns a namespace, this directly produces a per-team cost breakdown covering compute, memory, storage, and network. Just as with observability dashboards, teams benefit from visibility into their own cost data:
+
+- **Scope views to each team's namespace** — Kubecost supports filtering and saved reports by namespace, so each team can review its own consumption and trends without seeing other teams' data.
+- **Set budgets and alerts** — Configure per-namespace budget thresholds and alerts so teams and platform administrators are notified when spend approaches defined limits, supporting the same resource-fairness goals as HyperPod Task Governance.
+- **Support chargeback and showback** — Namespace-level allocation reports can feed internal chargeback (billing teams for their usage) or showback (reporting usage without billing) processes, giving finance and platform teams the data they need to attribute shared GPU costs fairly.
+
+```
+<Add screenshot from the Kubecost Allocations dashboard grouped by namespace>
+```
+
+*Learn more: [Kubecost on SageMaker HyperPod](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/kubecost-on-sagemaker-hyperpod) · [Kubecost](https://github.com/kubecost)*
 
 ## Conclusion
 
-This post presented a reference architecture for building multi-tenant environments on Amazon SageMaker HyperPod with EKS. By combining AWS IAM Identity Center for authentication, per-team IAM roles for AWS-level authorization, SageMaker Domains for a tailored workspace experience, Kubernetes namespaces for workload isolation, and HyperPod Task Governance for fair resource allocation, organizations can enable multiple teams to securely and efficiently share a single HyperPod EKS cluster.
+This post presented a reference architecture for building multi-tenant environments on Amazon SageMaker HyperPod with EKS. By combining AWS IAM Identity Center for authentication, per-team IAM roles for AWS-level authorization, SageMaker Domains for a tailored workspace experience, Kubernetes namespaces for workload isolation, HyperPod Task Governance for fair resource allocation, and namespace-level cost allocation for per-team spend visibility, organizations can enable multiple teams to efficiently share a single HyperPod EKS cluster.
 
 This is a flexible, composable approach that combines multiple building blocks into a cohesive solution. The architecture accommodates a variety of use cases and organizational structures. For example, organizations can extend this pattern to connect teams to HyperPod Slurm clusters alongside EKS, providing a unified multi-tenant experience across different orchestration backends — a pattern already proven in production environments.
 
-While this approach requires assembling and configuring multiple components, the result is a high degree of control and customization that can be tailored to each organization's specific security, compliance, and operational requirements; the foundational patterns — identity federation, namespace isolation, RBAC, and quota-based governance — will remain applicable.
-
----
-
-# Appendix A: CLI Access with Identity Center Permission Sets
-
-This appendix details how a team member can use the AWS CLI and `kubectl` with credentials provided directly by their Identity Center permission set.
-
-## Setting Up the Permission Set
-
-In Identity Center, create a custom permission set for each team with inline or managed policies that grant the permissions needed for CLI workflows. The permission set acts as the team's CLI identity — no additional role assumption is required by the user.
-
-Example inline policy for **TeamA-permission-set**:
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "EKSAccess",
-            "Effect": "Allow",
-            "Action": [
-                "eks:InvokeKubernetesApi",
-                "eks:DescribeCluster"
-            ],
-            "Resource": [
-                "arn:aws:eks:us-west-2:123456789012:cluster/hyperpod-cluster"
-            ]
-        },
-        {
-            "Sid": "S3TeamObjectAccess",
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::ml-data-bucket/team-a/*"
-            ]
-        },
-        {
-            "Sid": "S3TeamListAccess",
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::ml-data-bucket"
-            ],
-            "Condition": {
-                "StringLike": {
-                    "s3:prefix": "team-a/*"
-                }
-            }
-        },
-        {
-            "Sid": "CloudWatchRead",
-            "Effect": "Allow",
-            "Action": [
-                "logs:GetLogEvents",
-                "logs:FilterLogEvents",
-                "logs:DescribeLogStreams"
-            ],
-            "Resource": [
-                "arn:aws:logs:us-west-2:123456789012:log-group:/aws/eks/hyperpod-cluster/*:*"
-            ]
-        },
-        {
-            "Sid": "CloudWatchDescribeLogGroups",
-            "Effect": "Allow",
-            "Action": [
-                "logs:DescribeLogGroups"
-            ],
-            "Resource": [
-                "arn:aws:logs:us-west-2:123456789012:log-group:*"
-            ]
-        },
-        {
-            "Sid": "CloudWatchMetrics",
-            "Effect": "Allow",
-            "Action": [
-                "cloudwatch:GetMetricData",
-                "cloudwatch:ListMetrics"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "SSMSessionAccess",
-            "Effect": "Allow",
-            "Action": [
-                "ssm:StartSession"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-## Configuring the EKS Access Entry
-
-Identity Center creates an IAM role for the permission set following the naming pattern:
-
-```
-arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/<region>/AWSReservedSSO_TeamA-permission-set_<unique-id>
-```
-
-Create an EKS access entry for this role, scoped to the team's namespace. This grants the SSO-provisioned role Kubernetes-level permissions when users interact with the cluster via `kubectl`.
-
-## AWS CLI Configuration
-
-Configure the AWS CLI with `aws configure sso` and select the appropriate permission set. An example `~/.aws/config`:
-
-```ini
-[sso-session my-sso]
-sso_start_url = https://d-xxxxxxxxxx.awsapps.com/start
-sso_region = us-west-2
-sso_registration_scopes = sso:account:access
-
-[default]
-sso_session = my-sso
-sso_account_id = 123456789012
-sso_role_name = AdministratorAccess
-region = us-west-2
-
-[profile team-a]
-sso_session = my-sso
-sso_account_id = 123456789012
-sso_role_name = TeamA-permission-set
-region = us-west-2
-
-[profile team-b]
-sso_session = my-sso
-sso_account_id = 123456789012
-sso_role_name = TeamB-permission-set
-region = us-west-2
-```
-
-## Login and kubectl Workflow
-
-1. **Authenticate via SSO:**
-
-```bash
-aws sso logout --profile team-a
-aws sso login --profile team-a
-```
-
-2. **Verify identity:**
-
-```bash
-aws sts get-caller-identity --profile team-a
-```
-
-3. **Configure kubectl for the HyperPod EKS cluster:**
-
-```bash
-aws eks update-kubeconfig \
-  --name hyperpod-cluster \
-  --region us-west-2 \
-  --profile team-a
-```
-
-4. **Use kubectl with namespace-scoped access:**
-
-```bash
-# This will fail — access is scoped to the team namespace
-kubectl get Workspaces
-# Error: Forbidden in namespace "default"
-
-# This succeeds — correct namespace
-kubectl get Workspaces -n hyperpod-ns-team-a
-```
-
----
-
-# Appendix B: Known Gaps and Future Improvements
-
-This appendix documents the current limitations and gaps identified in the multi-tenant architecture that are expected to be addressed in future HyperPod releases.
-
-## Gap 1: HyperPod-Specific Navigation in SageMaker Domains
-
-**Current state:** SageMaker Domains support hiding navigation items to tailor the user experience, which can be used to create a more HyperPod-focused interface. However, a fully purpose-built HyperPod navigation experience is not yet available as a native domain configuration option.
-
-**Impact:** Administrators must manually configure navigation settings to approximate a HyperPod-centric experience. Users may still see some navigation items that are not relevant to their HyperPod workflows.
-
-**Workaround:** Use the existing domain navigation settings to hide irrelevant items. This provides a reasonable approximation of a HyperPod-focused experience but requires manual configuration and may not cover all navigation elements.
-
-## Gap 2: POSIX Security Context Injection for Pods
-
-**Current state:** In order to enforce the POSIX permission model on shared file systems (FSx for Lustre, FSx for OpenZFS, EFS), pods must run with the correct UID, GID, and supplemental groups in their security context. Currently, there is no automatic mechanism to read the `CustomPosixUserConfig` from the SageMaker Domain and inject these values into the pod's security context at runtime.
-
-**Impact:** Without proper security context configuration, pods may run as root or with a default UID that does not match the file system permissions, potentially allowing unauthorized access to other teams' files or preventing access to the team's own directories.
-
-**Workaround:** Cluster administrators can use Kubernetes admission webhooks (such as a mutating webhook) to inject the correct security context based on the namespace or service account. Alternatively, Space templates and job manifests can be pre-configured with the correct `runAsUser`, `runAsGroup`, and `fsGroup` settings for each team. This requires manual coordination between the SageMaker Domain POSIX configuration and the Kubernetes resource definitions.
-
-## Gap 3: Team Shared Directory Path Configuration
-
-**Current state:** There is no dedicated attribute in the SageMaker Domain or HyperPod configuration to specify the name and path of the team's shared directory on the file system.
-
-**Impact:** Administrators must establish a convention for team directory naming and manually ensure that Persistent Volume Claims, mount paths in templates, and file system directory structures are all consistent.
-
-**Workaround:** Adopt a naming convention based on the team's GID or namespace name (e.g., `/fsx/<namespace-name>/` or `/fsx/gid-<GID>/`). Document this convention and encode it in the infrastructure-as-code templates that provision per-team resources. This ensures consistency but relies on convention rather than configuration.
-
-## Gap 4: Training Job Submission from Studio GUI
-
-**Current state:** Submitting HyperPod training jobs (using the HyperPod Training Operator) directly from the SageMaker Studio GUI is not yet available. Users must submit training jobs via the CLI using `kubectl apply`.
-
-**Impact:** Team members who prefer the GUI workflow must switch to the CLI for training job submission, which adds friction and requires familiarity with Kubernetes manifests and `kubectl`.
-
-**Workaround:** Provide pre-built job templates as YAML files that team members can customize and submit via the CLI. Consider creating wrapper scripts or Jupyter notebooks that generate and submit job manifests programmatically, providing a more guided experience until native GUI support is available.
-
-## Gap 5: Inference Endpoint Deployment from Studio GUI
-
-**Current state:** Deploying models as inference endpoints using the HyperPod Inference Operator directly from the SageMaker Studio GUI is not yet available. Users must deploy endpoints via the CLI.
-
-**Impact:** Similar to Gap 4, this requires team members to use CLI-based workflows for model deployment, which may be less accessible for data scientists accustomed to GUI-driven deployment.
-
-**Workaround:** Provide deployment templates and scripts that simplify the CLI-based workflow. Jupyter notebooks with pre-configured deployment cells can serve as an intermediate solution.
-
-## Gap 6: Grafana Team-Based Dashboard Isolation
-
-**Current state:** Using Grafana Teams to restrict dashboard visibility to specific Identity Center groups has not been fully validated. While Amazon Managed Grafana supports Teams and folder-level permissions, the integration with Identity Center groups for automatic team assignment requires further testing.
-
-**Impact:** Without team-based dashboard isolation, all Viewer-level users may see all dashboards, including those showing metrics from other teams' namespaces. While the data in the dashboards is filtered by namespace, the dashboards themselves may be visible to all teams.
-
-**Workaround:** Create namespace-filtered dashboards and rely on Grafana folder permissions to organize team-specific dashboards. Alternatively, use Grafana's row-level security or variable-based filtering to ensure that each user only sees data from their own namespace, even if the dashboards are shared.
+While this approach requires assembling and configuring several components, the result is a high degree of control and customization that can be tailored to each organization's specific isolation, compliance, and operational requirements; the foundational patterns — identity federation, namespace isolation, RBAC, quota-based governance, and cost allocation — will remain applicable.
