@@ -334,8 +334,34 @@ Create namespace-scoped Space templates for each team. These templates define th
 
 When HyperPod Task Governance is enabled, templates should include the default labels required by the governance system (such as team identifier and priority labels). The cluster administrator pre-configures these labels so that team members do not need to specify them manually when launching Spaces.
 
-```
-<Add space template YAML example>
+The example below shows a JupyterLab Space template scoped to Team A. The team-specific parts are the `metadata.namespace`, the Task Governance queue label under `baseLabels`, and the `defaultVolumes` that mount the team's shared file system and the user's home directory:
+
+```yaml
+apiVersion: workspace.jupyter.org/v1alpha1
+kind: WorkspaceTemplate
+metadata:
+  name: jl-smd-custom
+  namespace: hyperpod-ns-team-a          # scopes the template to Team A's namespace
+spec:
+  displayName: "JupyterLab (team-a)"
+  description: "SageMaker Distribution"
+  appType: jupyterlab
+  baseLabels:
+  - key: kueue.x-k8s.io/queue-name       # Task Governance (Kueue) local queue for Team A
+    value: hyperpod-ns-team-a-localqueue
+  ...
+  # container command, default CPU/memory resources, security context, access type, etc.
+  ...
+  defaultVolumes:
+    - name: home-dir                     # per-user home directory
+      mountPath: /home
+      persistentVolumeClaimName: fsx-openzfs-claim
+    - name: shared-data                  # Team A's shared directory
+      mountPath: /fsx
+      persistentVolumeClaimName: fsx-lustre-claim
+  ...
+  # primary (EBS) storage defaults and limits
+  ...
 ```
 
 ### Persistent Volume Claims
@@ -349,6 +375,8 @@ Consider your organization's requirements around Space sharing:
 - **Owner-only Spaces** — Each Space is accessible only by the user who created it. This is the default and most secure configuration, appropriate when teams work on sensitive or independent projects.
 - **Shared Spaces** — Multiple team members can access the same Space, useful for pair programming, collaborative debugging, or shared development environments. When enabling shared Spaces, ensure that POSIX permissions and supplemental groups are configured to allow appropriate access to files created within the Space.
 
+*Learn more: [Interactive development environments on Amazon SageMaker HyperPod EKS clusters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-eks-cluster-ide.html)*
+
 
 ## HyperPod Training Operator
 
@@ -358,8 +386,21 @@ Teams can submit training jobs from the CLI using `kubectl apply` with the appro
 
 When Task Governance is enabled, training jobs are subject to the team's allocated quotas and priority settings. If a team has consumed its guaranteed allocation, jobs may be queued until resources become available or until lower-priority workloads are preempted.
 
-```
-<Add CRD example, only what matters>
+The two elements that anchor a job to a team are the `metadata.namespace` (which scopes the job to the team's isolation boundary) and the Task Governance labels. Task Governance is built on Kueue, so the job is routed to the team's local queue via `kueue.x-k8s.io/queue-name` and assigned a scheduling priority via `kueue.x-k8s.io/priority-class`:
+
+```yaml
+apiVersion: sagemaker.amazonaws.com/v1
+kind: HyperPodPyTorchJob
+metadata:
+  name: team-a-training-job
+  namespace: hyperpod-ns-team-a        # scopes the job to Team A's namespace
+  labels:
+    kueue.x-k8s.io/queue-name: hyperpod-ns-team-a-localqueue  # Task Governance (Kueue) local queue
+    kueue.x-k8s.io/priority-class: training-priority          # scheduling priority for the workload
+spec:
+  ...
+  # replicaSpecs, container image, command, resources, volumes, etc.
+  ...
 ```
 
 *Learn more: [Using the HyperPod training operator](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-eks-operator.html)*
@@ -372,8 +413,21 @@ Teams can deploy models from the CLI by creating inference endpoint custom resou
 
 For production inference workloads that require high availability, consider assigning higher scheduling priority to inference endpoints than to training jobs, ensuring that model serving is not interrupted by batch training workloads.
 
-```
-<Add CRD example, only what matters>
+As with training jobs, the inference endpoint is placed in the team's `metadata.namespace` and carries the Task Governance labels. Here the `kueue.x-k8s.io/priority-class` is set to a higher-priority class so that model serving can preempt batch training when the team's resources are constrained:
+
+```yaml
+apiVersion: inference.sagemaker.amazonaws.com/v1alpha1
+kind: InferenceEndpointConfig
+metadata:
+  name: team-a-inference-endpoint
+  namespace: hyperpod-ns-team-a        # scopes the endpoint to Team A's namespace
+  labels:
+    kueue.x-k8s.io/queue-name: hyperpod-ns-team-a-localqueue  # Task Governance (Kueue) local queue
+    kueue.x-k8s.io/priority-class: inference-priority         # higher priority than training
+spec:
+  ...
+  # model source, instance type, replica count, autoscaling, etc.
+  ...
 ```
 
 *Learn more: [Deploying models on Amazon SageMaker HyperPod](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment.html)*
@@ -394,9 +448,8 @@ Teams need access to observability dashboards to monitor their workloads, troubl
 
 4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by namespace, allowing each team to see only their own workload metrics. Grafana Teams can potentially be leveraged to restrict dashboard visibility to specific groups, providing an additional layer of data isolation.
 
-```
-<Add screenshot from Amazon Managed Grafana configuration>
-```
+![Amazon Managed Grafana role assignments](images/managed_grafana.png)
+*Figure: Grafana role assignments in Amazon Managed Grafana. The team groups (TeamA, TeamB) are assigned the Viewer role for read-only access to dashboards and metrics, while the admin group is assigned the Admin role, granting it the ability to create and modify dashboards, configure alerting, and manage data sources.*
 
 *Learn more: [Observability for Amazon SageMaker HyperPod cluster orchestrated by Amazon EKS](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-eks-cluster-observability.html)*
 
