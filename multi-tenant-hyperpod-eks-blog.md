@@ -406,7 +406,7 @@ Teams can submit training jobs from the CLI using `kubectl apply` with the appro
 
 When Task Governance is enabled, training jobs are subject to the team's allocated quotas and priority settings. If a team has consumed its guaranteed allocation, jobs may be queued until resources become available or until lower-priority workloads are preempted.
 
-The two elements that anchor a job to a team are the `metadata.namespace` (which scopes the job to the team's isolation boundary) and the Task Governance labels. Task Governance is built on Kueue, so the job is routed to the team's local queue via `kueue.x-k8s.io/queue-name` and assigned a scheduling priority via `kueue.x-k8s.io/priority-class`:
+The two elements that anchor a job to a team are the `metadata.namespace` (which scopes the job to the team's isolation boundary) and the Task Governance labels. Task Governance is built on Kueue, so the job is routed to the team's local queue via `kueue.x-k8s.io/queue-name` and assigned a scheduling priority via `kueue.x-k8s.io/priority-class`, whose value is the name of a `WorkloadPriorityClass` defined on the cluster:
 
 ```yaml
 apiVersion: sagemaker.amazonaws.com/v1
@@ -416,7 +416,7 @@ metadata:
   namespace: hyperpod-ns-team-a        # scopes the job to Team A's namespace
   labels:
     kueue.x-k8s.io/queue-name: hyperpod-ns-team-a-localqueue  # Task Governance (Kueue) local queue
-    kueue.x-k8s.io/priority-class: training-priority          # scheduling priority for the workload
+    kueue.x-k8s.io/priority-class: training-priority          # name of a WorkloadPriorityClass
 spec:
   ...
   # replicaSpecs, container image, command, resources, volumes, etc.
@@ -433,17 +433,17 @@ Teams can deploy models from the CLI by creating inference endpoint custom resou
 
 For production inference workloads that require high availability, consider assigning higher scheduling priority to inference endpoints than to training jobs, ensuring that model serving is not interrupted by batch training workloads.
 
-As with training jobs, the inference endpoint is placed in the team's `metadata.namespace` and carries the Task Governance labels. Here the `kueue.x-k8s.io/priority-class` is set to a higher-priority class so that model serving can preempt batch training when the team's resources are constrained:
+As with training jobs, the inference endpoint is placed in the team's `metadata.namespace` and carries the Task Governance labels. Here the `kueue.x-k8s.io/priority-class` references a higher-priority `WorkloadPriorityClass` so that model serving can preempt batch training when the team's resources are constrained:
 
 ```yaml
-apiVersion: inference.sagemaker.amazonaws.com/v1alpha1
+apiVersion: inference.sagemaker.aws.amazon.com/v1
 kind: InferenceEndpointConfig
 metadata:
   name: team-a-inference-endpoint
   namespace: hyperpod-ns-team-a        # scopes the endpoint to Team A's namespace
   labels:
     kueue.x-k8s.io/queue-name: hyperpod-ns-team-a-localqueue  # Task Governance (Kueue) local queue
-    kueue.x-k8s.io/priority-class: inference-priority         # higher priority than training
+    kueue.x-k8s.io/priority-class: inference-priority         # higher-priority WorkloadPriorityClass
 spec:
   ...
   # model source, instance type, replica count, autoscaling, etc.
