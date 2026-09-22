@@ -467,9 +467,8 @@ Once Kubecost is collecting data, group cost by namespace in the Allocations das
 - **Set budgets and alerts** — Configure per-namespace budget thresholds and alerts so teams and platform administrators are notified when spend approaches defined limits, supporting the same resource-fairness goals as HyperPod Task Governance.
 - **Support chargeback and showback** — Namespace-level allocation reports can feed internal chargeback (billing teams for their usage) or showback (reporting usage without billing) processes, giving finance and platform teams the data they need to attribute shared GPU costs fairly.
 
-```
-<Add screenshot from the Kubecost Allocations dashboard grouped by namespace>
-```
+![Kubecost Allocations dashboard grouped by namespace](images/kubecost.png)
+*Figure: The Kubecost Allocations dashboard grouped by namespace, showing the cumulative cost over the last 7 days for each team's namespace.*
 
 *Learn more: [Kubecost on SageMaker HyperPod](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/kubecost-on-sagemaker-hyperpod) · [Kubecost](https://github.com/kubecost)*
 
