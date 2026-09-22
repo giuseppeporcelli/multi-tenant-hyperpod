@@ -174,12 +174,58 @@ The HyperPod EKS cluster is where workloads actually execute. Multi-tenancy at t
 
 Create a dedicated Kubernetes namespace for each team — for example, `hyperpod-ns-team-a` and `hyperpod-ns-team-b`. Namespaces provide a logical boundary within the cluster, ensuring that each team's workloads (Spaces, training jobs, inference endpoints) are isolated from one another.
 
+> **Note: Namespaces are an isolation boundary, not a hard security boundary.**
+> The multi-tenancy model in this architecture is *multi-team within a single organization* — separate teams that share the same cluster and operate under a common administrative domain and a baseline level of mutual trust. It is not designed for *multi-customer* isolation, where mutually untrusted tenants require strong, adversarial security guarantees.
+>
+> This distinction matters because namespaces, RBAC, and quotas are effective at preventing *accidental* interference — teams overwriting each other's resources, consuming more than their allocated compute, or listing workloads outside their scope. They do not, on their own, constitute a defense against a determined malicious tenant. Namespaced pods can still share the same underlying nodes and kernel, and cluster-scoped resources (nodes, `PersistentVolume`s, `CustomResourceDefinition`s, and some operator components) live outside any single namespace. A tenant that must be treated as hostile could potentially exploit shared infrastructure, node-level access, or misconfigured cluster-scoped permissions to affect others.
+>
+> If your requirements involve untrusted tenants or strict regulatory isolation, consider stronger boundaries such as separate clusters or accounts per tenant, dedicated node pools, and runtime sandboxing. For the multi-team scenario described here, namespace-based isolation combined with RBAC, Task Governance quotas, and the POSIX identity controls described later provides an appropriate balance of separation and operational simplicity.
+
 Namespaces can be created manually with `kubectl create namespace` or provisioned automatically through HyperPod Task Governance, which manages namespaces as part of its quota and scheduling configuration.
 
 ![Per-team Kubernetes namespaces](images/namespaces.png)
 *Figure: The cluster's namespaces, with one dedicated namespace per team (`hyperpod-ns-team-a` and `hyperpod-ns-team-b`) providing workload isolation.*
 
 *Learn more: [Kubernetes namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)*
+
+### Network Isolation
+
+Namespaces do not restrict network traffic. By default, Kubernetes networking is flat — every pod can reach every other pod across all namespaces — so a pod in `hyperpod-ns-team-a` can open a connection to a pod in `hyperpod-ns-team-b` unless you add controls. To scope pod-to-pod reachability along team boundaries, use Kubernetes `NetworkPolicy` resources.
+
+The recommended pattern is *default-deny* per namespace: start by denying all ingress (and optionally egress), then explicitly allow the traffic each team actually needs — typically intra-namespace communication plus required egress such as DNS, storage endpoints, and AWS APIs. The following example denies all ingress in a team's namespace and then allows traffic only from pods within the same namespace:
+
+```yaml
+# 1. Default-deny all ingress in the team's namespace.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: hyperpod-ns-team-a
+spec:
+  podSelector: {}          # applies to all pods in the namespace
+  policyTypes:
+    - Ingress
+---
+# 2. Allow ingress only from pods within the same namespace.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-same-namespace
+  namespace: hyperpod-ns-team-a
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {}  # any pod in this namespace
+```
+
+`NetworkPolicy` enforcement depends on a CNI that supports it. On EKS, you can enable network policy support in the Amazon VPC CNI.
+
+As with namespaces, NetworkPolicies reduce *accidental* cross-team reachability and shrink blast radius, but they are not by themselves an adversarial security boundary on shared nodes. For stronger separation, consider dedicated node pools per team or separate clusters, as noted above.
+
+*Learn more: [Kubernetes network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/) · [Amazon VPC CNI network policy](https://docs.aws.amazon.com/eks/latest/userguide/cni-network-policy.html)*
 
 ### EKS Access Entries
 
@@ -235,9 +281,40 @@ The POSIX permission model on these file systems relies on UIDs, GIDs, and suppl
 These POSIX identities should then be propagated to the pod's security context when a user launches a HyperPod Space or submits a training job, ensuring that file system access respects the configured ownership and permissions.
 We recommend using a Kubernetes mutating admission webhook to retrieve POSIX identity information from your identity store at runtime when a workload is submitted, and modify the security context of the Pod accordingly.
 
+```python
+# 1. Extract the username (user@domain.com) from the admission request.
+#    When using AWS Identity Center with EKS, it gets propagated in userInfo.extra["sessionName"].
+def extract_username(admission_request):
+    extra = admission_request["userInfo"]["extra"]
+    ...
+    return extra["sessionName"][0]
+
+# 2. Look up the POSIX identity from a mapping table (e.g. DynamoDB).
+def lookup_posix_identity(username):
+    item = posix_table.get_item(Key={"username": username})["Item"]
+    ...
+    return {
+        "uid": int(item["uid"]),
+        "gid": int(item["gid"]),
+        "supplementalGroups": [int(g) for g in item["supplementalGroups"]],
+    }
+
+# 3. Patch the Pod security context with the resolved POSIX identity.
+def build_security_context_patch(pod, posix):
+    ...
+    return [{
+        "op": "add",
+        "path": "/spec/securityContext",
+        "value": {
+            "runAsUser": posix["uid"],
+            "runAsGroup": posix["gid"],
+            "fsGroup": posix["gid"],
+            "supplementalGroups": posix["supplementalGroups"],
+        },
+    }]
 ```
-<Add webhook code snippet>
-```
+
+See [`scripts/posix_mutating_webhook.py`](scripts/posix_mutating_webhook.py) for a more complete illustrative snippet, including the admission handler that ties these steps together.
 
 *Learn more: [FSx for Lustre](https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html) · [FSx for OpenZFS](https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/what-is-fsx.html) · [Amazon EFS](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html)*
 
