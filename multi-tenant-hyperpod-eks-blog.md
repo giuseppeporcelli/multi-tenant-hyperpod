@@ -378,6 +378,26 @@ Consider your organization's requirements around Space sharing:
 *Learn more: [Interactive development environments on Amazon SageMaker HyperPod EKS clusters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-eks-cluster-ide.html)*
 
 
+## Studio Experience
+
+While teams can interact with the cluster entirely from the CLI using `kubectl`, SageMaker Studio provides a graphical entry point to the cluster for users who prefer a managed, GUI-driven workflow. In this architecture, each team accesses Studio through its own SageMaker Domain (as described earlier), signing in with the same Identity Center credentials and operating within the boundaries of the team's namespace.
+
+![AWS access portal](images/idc_access_portal.png)
+*Figure: The IAM Identity Center access portal that users reach after signing in with their corporate credentials, providing single sign-on access to their assigned SageMaker Studio applications and Amazon Managed Grafana applications.*
+
+From the Studio UI, team members can:
+
+- **Manage HyperPod Spaces** — Launch interactive development environments from the namespace-scoped Space templates the administrator has configured, without writing Kubernetes manifests or specifying Task Governance labels manually, and start, stop, and connect to their running Spaces, opening the associated IDE (such as JupyterLab) directly in the browser.
+- **Manage Ray workloads** — Create and monitor Ray clusters, connect a JupyterLab or Code Editor workspace to a cluster, submit distributed jobs, open the Ray Dashboard and Amazon Managed Grafana observability dashboards — all without writing Kubernetes manifests or running `kubectl` commands.
+
+Because Studio operates through the team's Domain execution role and the corresponding EKS access entry, all actions are scoped to the team's namespace. A user launching a Space or a Ray cluster from Studio can only create it within their own team's boundary, consistent with the isolation model enforced for CLI access.
+
+![Creating a HyperPod Space from SageMaker Studio](images/studio_create_space.png)
+*Figure: Creating a HyperPod Space from the SageMaker Studio UI, where a team member selects a namespace-scoped Space template without writing Kubernetes manifests or specifying Task Governance labels manually.*
+
+*Learn more: [Interactive development environments on Amazon SageMaker HyperPod EKS clusters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-eks-cluster-ide.html) · [Introducing new Ray capabilities on SageMaker HyperPod](https://aws.amazon.com/blogs/machine-learning/introducing-new-ray-capabilities-on-sagemaker-hyperpod/)*
+
+
 ## HyperPod Training Operator
 
 The HyperPod Training Operator enables teams to submit distributed training jobs as Kubernetes custom resources (for example, HyperPodPyTorchJob). In the multi-tenant architecture, training jobs are namespace-scoped, meaning they automatically inherit the team's isolation boundaries.
