@@ -81,7 +81,7 @@ A typical team IAM role should include policies granting access to:
 - **Amazon CloudWatch** — For viewing logs and metrics related to the team's workloads.
 - **Amazon EKS** — Specifically, the `eks:AccessKubernetesApi` and `eks:MutateViaKubernetesApi` permissions, which are critical for enabling the SageMaker Studio GUI to make Kubernetes API calls on behalf of the user (for example, listing Spaces or submitting jobs).
 
-The trust policy on each IAM role must include `sagemaker.amazonaws.com` as a trusted principal, allowing SageMaker to assume the role on behalf of users when they operate through Studio. CLI access via Identity Center uses a separate permission set with its own policies (see "AWS Account Access via Identity Center" below), allowing CLI permissions to be independently scoped.
+The trust policy on each IAM role must include `sagemaker.amazonaws.com` as a trusted principal, allowing SageMaker to assume the role on behalf of users when they operate through Studio. If you plan to reuse the same execution role as an EKS Pod Identity association for in-cluster workloads (see the S3 Storage section below), the trust policy must also include `pods.eks.amazonaws.com` as a trusted principal. CLI access via Identity Center uses a separate permission set with its own policies (see "AWS Account Access via Identity Center" below), allowing CLI permissions to be independently scoped.
 
 *Learn more: [How to use SageMaker AI execution roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html)*
 
@@ -175,11 +175,11 @@ The HyperPod EKS cluster is where workloads actually execute. Multi-tenancy at t
 Create a dedicated Kubernetes namespace for each team — for example, `hyperpod-ns-team-a` and `hyperpod-ns-team-b`. Namespaces provide a logical boundary within the cluster, ensuring that each team's workloads (Spaces, training jobs, inference endpoints) are isolated from one another.
 
 > **Note: Namespaces are an isolation boundary, not a hard security boundary.**
-> The multi-tenancy model in this architecture is *multi-team within a single organization* — separate teams that share the same cluster and operate under a common administrative domain and a baseline level of mutual trust. It is not designed for *multi-customer* isolation, where mutually untrusted tenants require strong, adversarial security guarantees.
+> This architecture targets *multi-team within a single organization* — teams that share a cluster under a common administrative domain and a baseline of mutual trust. It is not designed for *multi-customer* isolation between mutually untrusted tenants.
 >
-> This distinction matters because namespaces, RBAC, and quotas are effective at preventing *accidental* interference — teams overwriting each other's resources, consuming more than their allocated compute, or listing workloads outside their scope. They do not, on their own, constitute a defense against a determined malicious tenant. Namespaced pods can still share the same underlying nodes and kernel, and cluster-scoped resources (nodes, `PersistentVolume`s, `CustomResourceDefinition`s, and some operator components) live outside any single namespace. A tenant that must be treated as hostile could potentially exploit shared infrastructure, node-level access, or misconfigured cluster-scoped permissions to affect others.
+> Namespaces, RBAC, and quotas prevent *accidental* interference (teams overwriting each other's resources or exceeding their compute allocation) but are not a defense against a determined malicious tenant: namespaced pods share the same nodes and kernel, and cluster-scoped resources (nodes, `PersistentVolume`s, CRDs, some operator components) sit outside any namespace.
 >
-> If your requirements involve untrusted tenants or strict regulatory isolation, consider stronger boundaries such as separate clusters or accounts per tenant, dedicated node pools, and runtime sandboxing. For the multi-team scenario described here, namespace-based isolation combined with RBAC, Task Governance quotas, and the POSIX identity controls described later provides an appropriate balance of separation and operational simplicity.
+> For untrusted tenants or strict regulatory isolation, use stronger boundaries — separate clusters or accounts, dedicated node pools, and runtime sandboxing. For the multi-team scenario here, namespace isolation combined with RBAC, Task Governance quotas, and the POSIX identity controls described later strikes an appropriate balance of separation and operational simplicity.
 
 Namespaces can be created manually with `kubectl create namespace` or provisioned automatically through HyperPod Task Governance, which manages namespaces as part of its quota and scheduling configuration.
 
@@ -282,8 +282,11 @@ These POSIX identities should then be propagated to the pod's security context w
 We recommend using a Kubernetes mutating admission webhook to retrieve POSIX identity information from your identity store at runtime when a workload is submitted, and modify the security context of the Pod accordingly.
 
 ```python
-# 1. Extract the username (user@domain.com) from the admission request.
-#    When using AWS Identity Center with EKS, it gets propagated in userInfo.extra["sessionName"].
+# 1. Extract the caller's session identity from the admission request.
+#    On EKS, requests from IAM-assumed roles (including IAM Identity Center)
+#    surface the STS session name in userInfo.extra["sessionName"]. Its format
+#    depends on how the session is created (e.g., an SSO short name, an email,
+#    or a role-session-name); align your identity mapping with this value.
 def extract_username(admission_request):
     extra = admission_request["userInfo"]["extra"]
     ...
@@ -313,8 +316,6 @@ def build_security_context_patch(pod, posix):
         },
     }]
 ```
-
-See [`scripts/posix_mutating_webhook.py`](scripts/posix_mutating_webhook.py) for a more complete illustrative snippet, including the admission handler that ties these steps together.
 
 *Learn more: [FSx for Lustre](https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html) · [FSx for OpenZFS](https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/what-is-fsx.html) · [Amazon EFS](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html)*
 
@@ -466,7 +467,7 @@ Teams need access to observability dashboards to monitor their workloads, troubl
 
 3. **Admin access** — Assign the Admin group to the Grafana Admin or Editor role, allowing them to create and modify dashboards, configure alerting, and manage data sources.
 
-4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by namespace, allowing each team to see only their own workload metrics. Grafana Teams can potentially be leveraged to restrict dashboard visibility to specific groups, providing an additional layer of data isolation.
+4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by namespace, allowing each team to see only their own workload metrics. Amazon Managed Grafana supports Grafana Teams (a Grafana-native RBAC concept, distinct from the organizational teams in this architecture), which can be mapped from Identity Center groups to restrict dashboard visibility and provide an additional layer of data isolation.
 
 ![Amazon Managed Grafana role assignments](images/managed_grafana.png)
 *Figure: Grafana role assignments in Amazon Managed Grafana. The team groups (TeamA, TeamB) are assigned the Viewer role for read-only access to dashboards and metrics, while the admin group is assigned the Admin role, granting it the ability to create and modify dashboards, configure alerting, and manage data sources.*
