@@ -6,7 +6,7 @@ Amazon SageMaker HyperPod is a purpose-built AI service that simplifies the mana
 
 As organizations scale their gen AI operations, a common challenge emerges: multiple teams within the same company need shared access to expensive GPU clusters while maintaining security boundaries, resource fairness, and operational independence. A data science team training large language models, a computer vision group running inference workloads, and a research team experimenting with new architectures — all may need access to the same HyperPod cluster. Without a well-designed multi-tenant architecture, organizations face uncontrolled resource consumption, weak isolation between teams, and administrative overhead that slows down innovation.
 
-In this post, we present a reference architecture for building a multi-tenant environment on Amazon SageMaker HyperPod with Slurm. This architecture leverages AWS Identity Center for centralized authentication, per-team SageMaker Domains for user management, Slurm partitions for workload isolation, and Linux user/group permissions for access control. By the end of this guide, you will have a clear blueprint for enabling multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
+In this post, we present a reference architecture for building a multi-tenant environment on Amazon SageMaker HyperPod with Slurm. This architecture leverages AWS Identity Center for centralized authentication, flexible user provisioning (via SSSD-backed directory integration or published lifecycle scripts), Slurm partitions for workload isolation, and Linux user/group permissions for access control. By the end of this guide, you will have a clear blueprint for enabling multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
 
 ## Architecture Overview
 
@@ -17,11 +17,9 @@ The following diagram illustrates the high-level architecture of a multi-tenant 
 
 The architecture is structured as a layered flow from left to right, connecting user identity through authorization controls and into isolated workload partitions on the cluster.
 
-**Users and authentication (left side).** On the far left, individual users from each team (User 1 from Team A, User 2 from Team B) interact with the system through two paths. Both paths authenticate through the AWS IAM Identity Center Portal, which federates with an external identity provider (such as Microsoft Entra ID) shown at the bottom-left. The first path is via SSM session access, where users authenticate using `aws sso login` and then start an SSM session to the cluster's login node. The `SSMSessionRunAs` attribute configured in the identity provider ensures that SSM sessions are launched with the correct Linux username matching the user's identity. The second path is through the Identity Center portal directly, where users select the SageMaker Studio application to log in to their team-specific SageMaker Domain.
+**Users and authentication (left side).** On the far left, individual users from each team (User 1 from Team A, User 2 from Team B) interact with the system. Users authenticate through the AWS IAM Identity Center Portal, which federates with an external identity provider (such as Microsoft Entra ID) shown at the bottom-left. They then authenticate using `aws sso login` and start an SSM session to the cluster's login node. The `SSMSessionRunAs` attribute configured in the identity provider ensures that SSM sessions are launched with the correct Linux username matching the user's identity.
 
-**SageMaker Domains (center-left).** From the Identity Center portal, users are routed to their team-specific SageMaker Domain. Each domain — SageMaker Domain Team A and SageMaker Domain Team B — provides a dedicated SageMaker Studio GUI and is configured with a team-specific execution role (TeamA-role and TeamB-role respectively). These domains serve as the primary workspace interface for managing HyperPod resources and connecting to the cluster.
-
-**Linux user and group management (center).** At the cluster boundary, Linux users and groups enforce access control. Each team maps to a Linux group (derived from the domain name), and each user has a unique UID (from `CustomPosixUserConfig`). The group membership, combined with Slurm's `AllowGroups` directive, determines which partitions each team can access.
+**Linux user and group management (center).** At the cluster boundary, Linux users and groups enforce access control. Each team maps to a Linux group, and each user has a unique UID. The group membership, combined with Slurm's `AllowGroups` directive, determines which partitions each team can access. The identity source — whether a directory service via SSSD or a shared CSV consumed by `create_users.sh` — is a deployment choice (see "User Provisioning: Choose Your Identity Source" later in this post).
 
 **HyperPod Slurm cluster (right side).** The cluster itself is depicted with a head node (controller), login nodes, and compute nodes organized into partitions. HyperPod Observability provides monitoring and dashboards across the cluster. Below, the cluster is partitioned into Partition A (Team A) and Partition B (Team B). The `AllowGroups` Slurm directive on each partition restricts job submission to the corresponding team's Linux group, providing workload isolation.
 
@@ -39,8 +37,7 @@ AWS IAM Identity Center (successor to AWS Single Sign-On) provides a single plac
 
 - **Centralized identity management** — Rather than maintaining separate user databases per AWS service, Identity Center provides a single source of truth for all user identities and their group memberships.
 - **Federation with existing identity providers** — Most enterprises already manage their workforce identities in systems like Microsoft Entra ID (formerly Azure AD), Okta, or Ping Identity. Identity Center integrates with these providers, allowing organizations to reuse their existing identity infrastructure without duplicating user accounts.
-- **Native integration with SageMaker** — SageMaker Domains support Identity Center authentication out of the box, enabling seamless single sign-on from the corporate identity provider directly into SageMaker Studio.
-- **AWS account access** — Identity Center can also grant users access to the underlying AWS account with specific permission sets, enabling SSM session workflows alongside the Studio GUI experience.
+- **AWS account access** — Identity Center can grant users access to the underlying AWS account with specific permission sets, enabling SSM session workflows into the cluster.
 - **SSM session identity mapping** — When combined with the `SSMSessionRunAs` attribute, Identity Center ensures that SSM sessions to the cluster are launched under the correct Linux user identity.
 - **Required for Amazon Managed Grafana** — Amazon Managed Grafana uses Identity Center as its authentication mechanism for workforce users, making it the natural choice when teams also need access to observability dashboards for monitoring their workloads.
 
@@ -58,6 +55,8 @@ The configuration involves:
 
 4. **SSMSessionRunAs attribute mapping** — In the Entra ID enterprise application configuration, define an additional attribute mapping: `AccessControl:SSMSessionRunAs` mapped to `user.mailnickname`. This ensures that when a user initiates an SSM session to a cluster node, the session runs as the Linux user matching their Entra ID mail nickname (e.g., `user1`). This is critical for maintaining consistent identity between the corporate directory and the Linux user accounts on the cluster.
 
+   On the AWS side, Session Manager must have `Run As` enabled in the session preferences document (`SSM-SessionManagerRunShell`, or your custom session document) and the SSM Agent on each cluster node must be version 2.3.50 or later. Without `Run As` enabled, sessions default to the SSM Agent's user (e.g., `ssm-user`) and the `SSMSessionRunAs` attribute is ignored.
+
 This configuration ensures that team membership — which drives all downstream authorization decisions — is managed in your existing corporate directory and automatically propagated to AWS, and that SSM sessions automatically map to the correct Linux user identity.
 
 ## Authorization
@@ -66,7 +65,7 @@ With authentication established, the next layer is authorization: controlling wh
 
 ### Per-Team IAM Roles
 
-Each team requires a dedicated IAM role that encapsulates the AWS-level permissions needed for their AI/ML workflows. These roles serve as the SageMaker Domain execution role and define what AWS services the team can access.
+Each team requires a dedicated IAM role that encapsulates the AWS-level permissions needed for their AI/ML workflows. This role is assumed by the team's SSO permission set and defines what AWS services the team can access.
 
 A typical team IAM role should include policies granting access to:
 
@@ -91,56 +90,102 @@ Users retrieve temporary credentials via the AWS CLI using `aws sso login`, whic
 
 Team members configure the AWS CLI to authenticate via Identity Center by running `aws configure sso`. This creates profiles in `~/.aws/config` that reference the appropriate Identity Center session and permission set. Each team member uses their team-specific profile when connecting to the cluster, ensuring that authorization boundaries are maintained and SSM sessions are launched with the correct Linux user identity.
 
-## SageMaker Domains
-
-SageMaker Domains provide the workspace boundary for each team, offering a tailored user experience, pre-configured execution roles, and built-in integration with Identity Center authentication.
-
-### Why SageMaker Domains
-
-Using one SageMaker Domain per team is a well-established pattern for organizing multi-team environments. This approach offers several advantages:
-
-- **Established multi-team pattern** — AWS has documented this approach extensively for separating lines of business or teams with multiple domains, making it a proven and supported configuration.
-- **Native Identity Center authentication** — Each domain can be configured with Identity Center authentication, meaning users sign in once through their corporate identity provider and land directly in their team's Studio environment.
-- **Built-in team and user configuration** — Domains provide mechanisms to specify configurations for users and teams without requiring additional custom entities. Critically, `CustomPosixUserConfig` can be used to assign specific UIDs and GIDs to users, which serves as the source of truth for Linux user and group creation on the Slurm cluster.
-- **Navigation customization** — Domain settings allow administrators to hide navigation items that are not relevant to the team's workflows, presenting a focused interface tailored to HyperPod use cases.
-
-### Setting Up Per-Team Domains
-
-Create one SageMaker Domain per team with Identity Center authentication. In our example, we create `TeamA-domain` and `TeamB-domain`. Each domain is configured as follows:
-
-1. **Default execution role** — Set the domain's default execution role to the team-specific IAM role created in the authorization step. This ensures that all actions performed through Studio inherit the appropriate permissions.
-
-2. **Identity Center group assignment** — Add the corresponding Identity Center group (e.g., the `TeamA` group) to the domain. This enables the SageMaker Studio application for all members of that group, granting them access to the domain's Studio interface.
-
-3. **Application assignment verification** — After configuring group access, review the application assignment in Identity Center to confirm that the correct groups are mapped to the correct domains.
-
-4. **CustomPosixUserConfig at the domain level** — Configure a GID at the domain level that will serve as the primary group ID for all users in that team. For example, Team A's domain might have GID `2001` and Team B's domain GID `3001`. This GID becomes the Linux group ID on the cluster.
-
-5. **CustomPosixUserConfig at the user profile level** — For each user profile within the domain, configure a unique UID. The username is derived from the `SingleSignOnUserValue` attribute of the user profile. For example, if `SingleSignOnUserValue` is `user1@domain.com`, the Linux username would be extracted as `user1`.
-
-6. **Navigation customization** — Configure the default navigation settings for each domain to present only the relevant capabilities, providing a streamlined "HyperPod-focused" user experience.
-
 ## HyperPod Slurm Cluster Configuration
 
 The HyperPod Slurm cluster is where workloads actually execute. Multi-tenancy at the cluster level is achieved through Linux user/group management for identity, Slurm partitions for resource isolation, and the `AllowGroups` directive for access control.
 
 ### Linux User and Group Management
 
-The foundation of Slurm-level isolation is the Linux user and group model. Users and groups on the cluster nodes must be consistent with the identities defined in the SageMaker Domains. The provisioning process follows this pattern:
+The foundation of Slurm-level isolation is the Linux user and group model. Each cluster node (head, login, compute) needs a consistent view of users and groups so that Slurm can resolve job identities, enforce `AllowGroups`, and apply POSIX file permissions correctly. The provisioning pattern is the same regardless of where UIDs and GIDs originate:
 
-1. **Group creation** — For each SageMaker Domain (team), create a Linux group on all cluster nodes. The group name corresponds to the domain name (e.g., `TeamA`, `TeamB`), and the GID matches the value configured in `CustomPosixUserConfig` at the domain level.
+1. **Group creation** — For each team, create a Linux group on all cluster nodes. The group name corresponds to the team (e.g., `TeamA`, `TeamB`), and the GID is drawn from the chosen identity source.
 
-2. **User creation** — For each user profile within a domain, create a Linux user on all cluster nodes. The username is extracted from the `SingleSignOnUserValue` attribute (e.g., the local part of `user1@domain.com` yields username `user1`), and the UID matches the value configured in `CustomPosixUserConfig` at the user profile level.
+2. **User creation** — For each team user, create a Linux user on all cluster nodes. The username corresponds to the user's SSO short name (e.g., `user1-teama`), and the UID is drawn from the chosen identity source.
 
 3. **Group membership** — Each user is added to their team's Linux group as both their primary group and as a supplementary member. This means User 1 (UID `20001`) belongs to group `TeamA` (GID `2001`), and User 2 (UID `30001`) belongs to group `TeamB` (GID `3001`).
 
-   Supplementary membership (in addition to primary GID) is required because Slurm's `AllowGroups` directive resolves group membership by reading the supplementary member list in `/etc/group` — not the primary GID stored in `/etc/passwd`. A user created with only a primary GID will be invisible to `AllowGroups`, causing the partition to fail open. The `create_users_sm_domain.py` provisioning script handles this automatically by running `usermod -aG` after each user is created.
+   Explicit supplementary membership is the reliable pattern for `AllowGroups` enforcement. Slurm resolves group membership via the operating system's Name Service Switch (`getgrouplist`), which can combine `/etc/passwd` (primary GID), `/etc/group` (supplementary members), and configured directory services (SSSD, LDAP). On some configurations, a user whose only link to a group is via primary GID — without an explicit entry in the group's member list — can fail the lookup. Adding each user to their team group with `usermod -aG <team> <user>` ensures the user is unambiguously listed as a group member on all NSS backends. Access is **denied by default** (fail-closed) when the lookup doesn't match any group in `AllowGroups`. The provisioning options described in the next subsection all handle this automatically.
 
-4. **Home directory permissions** — Each user's home directory is created at mode `750` by the provisioning script, making it readable by other members of the same team group. If you need complete isolation between team members — so that no user can read another's home directory — change the `chmod` call in `create_users_sm_domain.py` to use mode `700`.
+4. **Home directory permissions** — Each user's home directory is typically created at mode `750`, making it readable by other members of the same team group. If you need complete isolation between team members — so that no user can read another's home directory — set the home-directory mode to `700` instead. Home directories live under `/fsx/<username>` on the shared FSx volume so they are consistent across nodes.
 
-4. **Consistency across nodes** — The same users and groups must exist on all cluster nodes (head node, compute nodes, login nodes) to ensure that Slurm can correctly schedule and execute jobs under the appropriate identity. This can be achieved through lifecycle scripts that run during node provisioning, or through centralized user management tools.
+5. **Consistency across nodes** — The same users and groups must exist on all cluster nodes (head node, compute nodes, login nodes) to ensure that Slurm can correctly schedule and execute jobs under the appropriate identity. The different provisioning options achieve this differently: SSSD-based options read from a central directory on every node automatically; file/script-based options use lifecycle scripts or SSH fan-out to apply the same user list across nodes.
 
-This approach creates a direct mapping between the corporate identity (managed in Entra ID and Identity Center), the SageMaker Domain configuration (which stores UIDs and GIDs), and the Linux identities on the cluster (which Slurm uses for job scheduling and file system permissions).
+This approach creates a direct mapping between the corporate identity (managed in Entra ID and Identity Center) and the Linux identities on the cluster (which Slurm uses for job scheduling and file system permissions).
+
+### User Provisioning: Choose Your Identity Source
+
+There is more than one way to put the right Linux users and groups on each cluster node. The right choice depends on your organization's existing identity infrastructure and how much integration you want. The three options below are not mutually exclusive, but one is typically chosen as the primary mechanism.
+
+#### Option 1 — SSSD with Active Directory or LDAP (recommended for enterprise)
+
+SSSD (System Security Services Daemon) lets each cluster node authenticate users and resolve group membership directly against your corporate directory (Active Directory, OpenLDAP, FreeIPA). This is the AWS-recommended approach for enterprise HyperPod Slurm deployments, and it is **supported out of the box** via the AWS-published reference lifecycle scripts in [`awsome-distributed-ai/LifecycleScripts/base-config/config.py`](https://github.com/awslabs/awsome-distributed-ai/blob/main/1.architectures/5.sagemaker-hyperpod/LifecycleScripts/base-config/config.py). These scripts are applied by setting the HyperPod cluster's `LifeCycleConfig` to point at `base-config/`; setting `enable_sssd = True` and configuring the `SssdConfig` block then tells the lifecycle scripts to install and configure SSSD on every node during provisioning (not a native HyperPod console feature):
+
+```python
+class SssdConfig:
+    domain = "default"
+    ldap_uri = "ldaps://nlb-ds-xyzxyz.elb.us-west-2.amazonaws.com"
+    ldap_search_base = "dc=hyperpod,dc=abc123,dc=com"
+    ldap_default_bind_dn = "CN=ReadOnly,OU=Users,OU=hyperpod,DC=hyperpod,DC=abc123,DC=com"
+    ldap_default_authtok_type = "obfuscated_password"
+    ldap_default_authtok = "placeholder"      # obfuscated password
+    ssh_auth_method = "publickey"
+    override_homedir = "/fsx/%u"              # home on shared FSx
+
+    # Group names allowed to SSH per node role
+    ssh_allow_groups = {
+        "controller": ["ClusterAdmin", "ubuntu"],
+        "compute":    ["ClusterAdmin", "ClusterDev", "ubuntu"],
+        "login":      ["ClusterAdmin", "ClusterDev", "ubuntu"],
+    }
+    # Groups that get sudo per node role
+    sudoers_groups = {
+        "controller": ["ClusterAdmin", "ClusterDev"],
+        "compute":    ["ClusterAdmin", "ClusterDev"],
+        "login":      ["ClusterAdmin", "ClusterDev"],
+    }
+```
+
+With SSSD, UID/GID values come from the LDAP directory's `uidNumber` and `gidNumber` attributes. Adding a new user or changing a team membership happens in the directory — no SSH to each node, no CSV to re-upload. Home directories live on FSx (`override_homedir = "/fsx/%u"`), and the SSH / sudo policy is enforced per node role.
+
+Choose this option if your organization already runs Active Directory, OpenLDAP, or FreeIPA, or is willing to stand one up (AWS Managed Microsoft AD is a straightforward choice).
+
+#### Option 2 — SSSD with Entra ID (via an LDAPS front-end)
+
+If your identity source is Entra ID, you can still use the SSSD path by exposing an LDAPS endpoint in front of Entra. Entra ID doesn't natively expose LDAP, so this typically means standing up Entra Domain Services or a self-managed LDAP proxy that reads Entra via Microsoft Graph. The HyperPod `SssdConfig` block above is unchanged — only the `ldap_uri` and `ldap_search_base` point at the LDAPS gateway instead of a traditional directory. Note that Entra Domain Services is a Microsoft-managed service with its own hourly billing, replica-set configuration, and connectivity requirements (private endpoint, Site-to-Site VPN, or ExpressRoute to your cluster VPC); account for these before adopting this option.
+
+The user and group POSIX attributes (`uidNumber`, `gidNumber`, `memberOf`) must be populated on each Entra user object. Microsoft Entra schema extensions or the built-in POSIX attributes (available with Entra Domain Services) satisfy this.
+
+Choose this option if Entra ID is already your authoritative identity source for workforce users and you want to avoid running a parallel directory.
+
+#### Option 3 — Local users via `create_users.sh` (recommended for simpler deployments)
+
+For deployments without a corporate directory, AWS publishes a lifecycle script [`create_users.sh`](https://github.com/awslabs/awsome-distributed-ai/blob/main/1.architectures/5.sagemaker-hyperpod/LifecycleScripts/base-config/utils/create_users.sh) that creates local Linux users across all cluster nodes. The script is driven by a `shared_users.txt` CSV file:
+
+```csv
+username,uid,home-directory
+user1-teama,20001,/fsx/user1-teama
+user2-teamb,30001,/fsx/user2-teamb
+```
+
+The script auto-detects the cluster topology from `/opt/ml/config/resource_config.json`, SSHes to each node (controller, login, compute — in parallel, up to 64 at a time), and runs `useradd` for each user not already present. Running it is idempotent: re-executing on an existing cluster adds new users and skips existing ones.
+
+```bash
+# Create users from the CSV (or CLI args)
+sudo ./create_users.sh                       # reads shared_users.txt
+sudo ./create_users.sh alice bob carol       # CLI mode, auto-assigns UIDs
+```
+
+Team-group membership is applied by adding `usermod -aG <group> <user>` steps after user creation, either as a wrapper around `create_users.sh` or as follow-on lifecycle steps. The CSV file (and group assignments) typically lives in Git or in your lifecycle-config S3 bucket, giving you an auditable change history.
+
+Choose this option when you have a small, relatively stable user base, no corporate directory to integrate with, or a strong preference for file-based configuration that fits into your IaC pipelines.
+
+#### Summary
+
+| Option | Identity source | HyperPod lifecycle support | Best for |
+|---|---|---|---|
+| 1. SSSD + AD/LDAP | Central directory | ✓ Out of the box via `SssdConfig` | Enterprise orgs already running AD/LDAP |
+| 2. SSSD + Entra ID (via LDAPS) | Entra ID | ✓ (same SSSD config) | Entra-first orgs willing to run an LDAPS front-end |
+| 3. `create_users.sh` + CSV | Checked-in `shared_users.txt` | ✓ Published lifecycle script | Smaller teams; IaC-driven workflows |
 
 ### Operator Privileges: Group-based sudo
 
@@ -185,13 +230,15 @@ PartitionName=partition-team-a Nodes=compute-[001-010] Default=NO AllowGroups=Te
 PartitionName=partition-team-b Nodes=compute-[011-020] Default=NO AllowGroups=TeamB
 ```
 
+> **Note on case:** Linux group names in `AllowGroups` are **case-sensitive**. If your Linux group is named `TeamA`, `AllowGroups=TeamA` matches but `AllowGroups=teama` does not — unlike `sacctmgr` account names, which are case-folded to lowercase.
+
 With this configuration:
 
 - Users in the `TeamA` Linux group can only submit jobs to `partition-team-a`.
 - Users in the `TeamB` Linux group can only submit jobs to `partition-team-b`.
 - Attempting to submit a job to another team's partition results in a Slurm permission error.
 
-> **Note on group membership and cache refresh:** Slurm enforces `AllowGroups` using the supplementary member list in `/etc/group`. The `create_users_sm_domain.py` script ensures each user is added as a supplementary group member automatically. After provisioning users or updating group memberships, run `sudo scontrol reconfig` on the controller node so that `slurmctld` refreshes its group cache — the provisioning script prints this reminder at the end of each run.
+> **Note on group membership and cache refresh:** `slurmctld` caches the per-partition list of permitted user IDs resolved from `AllowGroups` and only refreshes it on daemon restart, `scontrol reconfigure`, or when the partition's `AllowGroups` value is reassigned. After adding or removing users from a team group — regardless of which identity source (SSSD, `create_users.sh`, etc.) you used — run `sudo scontrol reconfigure` on the controller so the new membership takes effect for partition access.
 
 This provides workload isolation that is conceptually similar to namespace-scoped RBAC in the EKS architecture. Each team can only consume resources from their designated partition, and they cannot interfere with or observe jobs running in another team's partition.
 
@@ -221,18 +268,24 @@ Slurm's QoS (Quality of Service) framework attaches quantitative limits to Slurm
 Create a QoS for each team and attach it to the team's account:
 
 ```
-sacctmgr -i add qos team-a-qos MaxJobs=10 MaxSubmitJobs=100 MaxWall=24:00:00 Priority=100
-sacctmgr -i add qos team-b-qos MaxJobs=10 MaxSubmitJobs=100 MaxWall=24:00:00 Priority=100
-sacctmgr -i modify account teama set QoS=team-a-qos
-sacctmgr -i modify account teamb set QoS=team-b-qos
+sacctmgr -i add qos team-a-qos \
+    Priority=100 MaxTRES=cpu=100,gres/gpu=48 \
+    MaxTRESPerUser=gres/gpu=48 MaxWall=24:00:00 Flags=DenyOnLimit
+sacctmgr -i add qos team-b-qos \
+    Priority=100 MaxTRES=cpu=100,gres/gpu=48 \
+    MaxTRESPerUser=gres/gpu=48 MaxWall=24:00:00 Flags=DenyOnLimit
+sacctmgr -i modify account teama set QoS=team-a-qos DefaultQOS=team-a-qos
+sacctmgr -i modify account teamb set QoS=team-b-qos DefaultQOS=team-b-qos
 ```
 
 Key limit types:
 
-- `MaxJobs` — maximum concurrently *running* jobs per user. Enforced at scheduling time; overflow jobs stay in the queue with reason `QOSMaxJobsPerUserLimit`.
-- `MaxSubmitJobs` — maximum jobs a user can have *in the queue at all* (running + pending). Enforced at submission time; `sbatch` returns non-zero and prints `QOSMaxSubmitJobPerUserLimit`.
+- `MaxTRES` — total TRES (CPU, GPU, memory) a job in this QoS can request. With `Flags=DenyOnLimit`, jobs exceeding this are rejected at submission time; without the flag, they pend.
+- `MaxTRESPerUser` — total TRES one user in this QoS can hold simultaneously across all their running jobs.
 - `MaxWall` — maximum wall time per job.
-- `Priority` — base priority added to the job's scheduling priority.
+- `Priority` — base priority added to the job's scheduling priority. See the chargeback guide for multi-factor priority weighting.
+
+For per-user job-count limits (as opposed to TRES limits), use `MaxJobsPU` (running jobs per user) or `MaxSubmitJobsPU` (queued + running jobs per user). The chargeback guide's QoS page uses TRES-based limits exclusively, which is the recommended pattern for GPU-sharing scenarios.
 
 For enforcement, `slurm.conf` must include:
 
@@ -240,7 +293,11 @@ For enforcement, `slurm.conf` must include:
 AccountingStorageEnforce=qos,limits,associations
 ```
 
-Run `sudo scontrol reconfig` on the controller after changing `slurm.conf`. When a user submits an 11th concurrent job to TeamA, Slurm holds the job with reason `QOSMaxJobs`. Jobs stay in the queue and are released as running jobs complete.
+Run `sudo scontrol reconfigure` on the controller after changing `slurm.conf`. When a user submits a job that exceeds the QoS's `MaxTRES` with `Flags=DenyOnLimit`, Slurm rejects the submission immediately; without the flag, the job stays pending with reason `QOSMaxTRESPerJobLimit`.
+
+> **Important:** Enabling `qos` in `AccountingStorageEnforce` requires every user association to have access to at least one QoS, and the association's `DefaultQOS` must be set — otherwise jobs submitted without an explicit `--qos` are rejected with `QOSNotFound`. The `sacctmgr -i modify account ... set QoS=... DefaultQOS=...` commands above handle this; verify with `sacctmgr show assoc tree format=Account,User,QOS,DefaultQOS`.
+>
+> **Cumulative enforcement:** Both `qos` and `limits` imply `associations`, so `AccountingStorageEnforce=qos,limits` is also sufficient. Only one `scontrol reconfigure` is needed with the final value.
 
 For fair-share scheduling, priority weighting, preemption, TRES billing weights, and QoS-based cost allocation, see the [Slurm GPU Chargeback & Cost Allocation guide](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/slurm-gpu-chargeback--cost-allocation).
 
@@ -248,18 +305,18 @@ For fair-share scheduling, priority weighting, preemption, TRES billing weights,
 
 In a multi-tenant cluster, knowing *who used what* is as important as enforcing *who can access what*. Slurm's built-in accounting system — backed by `slurmdbd` — tracks every job against a named account. This is the foundation for team-level GPU attribution and, from there, cost chargeback.
 
-### How Accounting Fits with SageMaker Studio Users
+### How Accounting Fits with Cluster Users
 
-Each SageMaker Domain maps to a Linux group (`TeamA`, `TeamB`). The same team names are used as Slurm accounts, creating a clean three-layer identity chain:
+Each team maps to a Linux group (`TeamA`, `TeamB`), and the same team names are used as Slurm accounts, creating a clean identity chain from the IdP down to accounting records:
 
 ```
-SageMaker Domain (TeamA)
+Identity source (SSSD/LDAP or CSV)
     → Linux group TeamA (GID 2001)
         → Slurm account teama
             → sacct records: Account=teama, User=user1-teama
 ```
 
-When a Studio user connects via SSM and submits a job, the job is automatically attributed to their Slurm account. No manual tagging is needed — the Linux identity established at session start (via `SSMSessionRunAs`) flows directly into Slurm accounting.
+When a user connects via SSM and submits a job, the job is automatically attributed to their Slurm account. No manual tagging is needed — the Linux identity established at session start (via `SSMSessionRunAs`) flows directly into Slurm accounting.
 
 ### Setting Up Accounts and Associations
 
@@ -298,22 +355,20 @@ sacct -a -X -P \
   > /fsx/reports/jobs-august.csv
 ```
 
-The `Account` field in `sacct` output confirms which team's budget is being charged for each job. For Studio users, this will match their domain's team name (lowercase).
+The `Account` field in `sacct` output confirms which team's budget is being charged for each job. The value matches the user's team name as configured in `sacctmgr` (lowercase, since `sacctmgr` normalises account names).
 
 ### Chargeback: From Attribution to Cost Allocation
 
 The setup above gives you accurate per-team GPU attribution. Translating GPU-hours into dollar costs — and building dashboards for stakeholders — requires additional components: automated report generation, S3 export, CUR-based cost allocation, and QuickSight visualisation.
 
-A complete, production-tested implementation of this chargeback pipeline is documented in the **[Slurm GPU Chargeback & Cost Allocation](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/slurm-gpu-chargeback--cost-allocation)** guide, which covers:
+A complete, production-tested implementation of this chargeback pipeline is documented in the **[Slurm GPU Chargeback & Cost Allocation](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/category/slurm-gpu-chargeback--cost-allocation)** guide. The pipeline is organized as a six-stage flow, each stage documented on its own sub-page:
 
-- Account hierarchy setup with parent/child accounts for sub-teams
-- Fair-share scheduling, QoS, priority, and preemption configuration
-- Bulk user import and optional LDAP sync
-- Job tagging strategy for project-level cost allocation (beyond team-level)
-- Automated `sreport` and `sacct` data extraction scripts
-- S3 upload automation with cron scheduling
-- Cost allocation from the AWS Cost and Usage Report (CUR)
-- QuickSight dashboards for visualising GPU utilisation per team
+1. **[Account Hierarchy Setup](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/slurm-orchestration/add-ons/slurm-chargeback/account-hierarchy)** — Create a parent/child account tree in `sacctmgr` (e.g., `org-root → team-a → team-a-research`), then associate users with their accounts manually, via CSV import, or via LDAP sync.
+2. **[Fair-share, QoS, Priority & Preemption (Optional)](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/slurm-orchestration/add-ons/slurm-chargeback/qos-priority-preemption)** — Define service tiers (`urgent`, `high`, `normal`, `low`, `debug`), fair-share weights per team, multi-factor priority, and preemption. Optional, but recommended for shared GPU clusters with contention.
+3. **[Data Extraction](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/slurm-orchestration/add-ons/slurm-chargeback/data-extraction)** — Run `sreport` and `sacct` to produce CSV reports: GPU-hours per team, top users, job size distribution, cluster utilization, and per-job detail. A single wrapper script generates the full report pack.
+4. **[S3 Upload Automation](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/slurm-orchestration/add-ons/slurm-chargeback/s3-upload-automation)** — Push the generated CSVs to S3 using Hive-style partitioning (`period=monthly/year=2026/month=09/`) so Athena can discover them cleanly. Cron the pipeline on the login or head node.
+5. **[Cost Allocation from CUR](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/slurm-orchestration/add-ons/slurm-chargeback/cost-allocation-from-cur)** — Join Slurm GPU-hours with effective hourly rates from your AWS Cost and Usage Report (via Athena views) to produce dollar-cost columns per user, team, and project. Rates include RI/SP/EDP discounts.
+6. **[QuickSight Dashboard (Optional)](https://awslabs.github.io/ai-on-sagemaker-hyperpod/docs/slurm-orchestration/add-ons/slurm-chargeback/quicksight-dashboard)** — Create Athena tables over the S3 reports, define QuickSight datasets, and build dashboards for GPU usage and cost by team, user, and project.
 
 The foundation established in this blog — per-team Linux groups, Slurm accounts, and user associations — is a direct prerequisite for that pipeline. Once the accounts and associations are in place, the chargeback guide can be followed without modification.
 
@@ -321,7 +376,7 @@ The foundation established in this blog — per-team Linux groups, Slurm account
 
 Users in the Slurm architecture connect to the cluster's login nodes via AWS Systems Manager (SSM) sessions. As a best practice, users should connect to dedicated login nodes rather than the head node — login nodes are designed to handle interactive user sessions and job submission, while the head node should be reserved for cluster management and Slurm controller operations. SSM provides a managed, secure connection without requiring inbound firewall rules or SSH key management.
 
-> **Note:** SSM maps the incoming identity to a Linux user via the `SSMSessionRunAs` attribute. For this to succeed, the Linux user must already exist on the target node at the time of the session. Team users are provisioned automatically by `create_users_sm_domain.py` (see Appendix B). Operators or admins who are not backed by a SageMaker Domain — such as cluster bootstrap engineers or on-call administrators — must have their Linux accounts created out-of-band (for example, via lifecycle scripts or a one-time `useradd` on all nodes) before their first SSM session.
+> **Note:** SSM maps the incoming identity to a Linux user via the `SSMSessionRunAs` attribute. For this to succeed, the Linux user must already exist on the target node at the time of the session. Team users are provisioned by whichever identity source you chose (SSSD-backed directory or `create_users.sh` + CSV — see "User Provisioning: Choose Your Identity Source" above). Operators or admins who are not covered by your tenant user source — such as cluster bootstrap engineers or on-call administrators — must have their Linux accounts created out-of-band (for example, via a lifecycle script or a one-time `useradd` on all nodes) before their first SSM session.
 
 ### SSMSessionRunAs Configuration
 
@@ -331,7 +386,7 @@ The `AccessControl:SSMSessionRunAs` attribute, configured in the identity provid
 2. The user initiates an SSM session to a cluster login node.
 3. SSM reads the `SSMSessionRunAs` attribute from the user's Identity Center profile.
 4. The session is launched as the Linux user matching the attribute value (e.g., `user1`).
-5. The user is now operating on the cluster with their assigned UID, GID, and group memberships — all matching the configuration in the SageMaker Domain.
+5. The user is now operating on the cluster with their assigned UID, GID, and group memberships — all matching the configuration from the chosen identity source.
 
 This means that when the user submits Slurm jobs, the jobs run under their Linux identity, and file system permissions, partition access (via `AllowGroups`), and Slurm accounting all work correctly without any additional identity mapping.
 
@@ -348,8 +403,8 @@ aws ssm start-session \
 
 # The session starts as the user's Linux identity (e.g., user1)
 # Verify identity
-whoami   # user1
-id       # uid=20001(user1) gid=2001(TeamA) groups=2001(TeamA)
+whoami   # user1-teama
+id       # uid=20001(user1-teama) gid=2001(TeamA) groups=2001(TeamA)
 
 # Submit a Slurm job
 sbatch --partition=partition-team-a my_training_job.sh
@@ -366,9 +421,9 @@ Each node role permits a different set of Linux groups:
 | Node role      | AllowGroups                                       |
 |----------------|---------------------------------------------------|
 | controller     | `Admin`                                           |
-| login          | `Admin`, `mg-domain-teamA`, `mg-domain-teamB`     |
-| compute-team-a | `Admin`, `mg-domain-teamA`                        |
-| compute-team-b | `Admin`, `mg-domain-teamB`                        |
+| login          | `Admin`, `TeamA`, `TeamB`                         |
+| compute-team-a | `Admin`, `TeamA`                                  |
+| compute-team-b | `Admin`, `TeamB`                                  |
 
 A TeamA user can SSH into the login node and into compute-team-a nodes, but not into compute-team-b or the controller. Admins have SSH into all nodes. Regular team users cannot SSH into the controller.
 
@@ -377,7 +432,7 @@ A TeamA user can SSH into the login node and into compute-team-a nodes, but not 
 The script `scripts/configure_sshd_multi_tenant.sh` writes `/etc/ssh/sshd_config.d/50-mg-multi-tenant.conf` with the correct `AllowGroups` value for the node's role, then restarts `sshd`. The node role is auto-detected from `/opt/ml/config/resource_config.json` (or falls back to hostname pattern match). Invoke this script from a HyperPod lifecycle script so newly-provisioned compute nodes receive the policy automatically:
 
 ```
-AllowGroups Admin mg-domain-teamA        # example for compute-team-a
+AllowGroups Admin TeamA                   # example for compute-team-a
 PubkeyAuthentication yes
 PasswordAuthentication no
 ```
@@ -432,7 +487,7 @@ For workloads that require a shared, high-performance POSIX file system — whic
 The storage layout typically follows this structure:
 
 - **Per-team shared directories** — Each team has a shared directory (e.g., `/fsx/TeamA`, `/fsx/TeamB`) for datasets, models, and artifacts that all team members need to access. Directory ownership is set to the team's GID with group read/write permissions.
-- **Per-user home directories** — Each user has a personal home directory (e.g., `/home/user1`, `/home/user2`) for individual work, experiments, and scripts.
+- **Per-user home directories** — Each user has a personal home directory (e.g., `/fsx/user1`, `/fsx/user2`) for individual work, experiments, and scripts.
 
 Because Slurm jobs execute directly as the submitting Linux user (unlike container-based environments that require security context configuration), the POSIX permission model works naturally. When User 1 from Team A submits a job, it runs as UID `20001` with primary GID `2001` (TeamA). Files created by the job are automatically owned by the correct user and group, and the standard Linux permission model (`chmod`, `chown`, ACLs) governs access.
 
@@ -440,8 +495,8 @@ Because Slurm jobs execute directly as the submitting Linux user (unlike contain
 # Example directory structure and permissions
 /fsx/TeamA/     # drwxrws--- root:TeamA (GID 2001)
 /fsx/TeamB/     # drwxrws--- root:TeamB (GID 3001)
-/home/user1/    # drwx------ user1:TeamA
-/home/user2/    # drwx------ user2:TeamB
+/fsx/user1/     # drwxr-x--- user1:TeamA (mode 750 — team-group readable)
+/fsx/user2/     # drwxr-x--- user2:TeamB (mode 750 — team-group readable)
 ```
 
 The setgid bit (`s`) on team directories ensures that new files created within the directory inherit the team's group ownership, regardless of which team member creates them.
@@ -491,7 +546,7 @@ Teams need access to observability dashboards to monitor their workloads, troubl
 
 3. **Admin access** — Assign the Admin group to the Grafana Admin or Editor role, allowing them to create and modify dashboards, configure alerting, and manage data sources.
 
-4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by partition or user/group, allowing each team to see only their own workload metrics. Grafana Teams can potentially be leveraged to restrict dashboard visibility to specific groups, providing an additional layer of data isolation.
+4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by partition or user/group, allowing each team to see only their own workload metrics. Amazon Managed Grafana supports Grafana Teams (a Grafana-native RBAC concept, distinct from the organizational teams in this architecture), which can be mapped from Identity Center groups to restrict dashboard visibility and provide an additional layer of data isolation.
 
 ## Getting Started
 
@@ -499,8 +554,7 @@ To simplify the deployment of this multi-tenant architecture, we recommend an in
 
 - The team IAM role with appropriate policies and trust relationships
 - The Identity Center permission set with SSM-specific policies for the team
-- The SageMaker Domain with Identity Center authentication, group assignment, and `CustomPosixUserConfig`
-- Linux user and group provisioning scripts (lifecycle scripts) for the HyperPod cluster nodes
+- Linux user and group provisioning on cluster nodes via the chosen identity source (SSSD-backed directory via HyperPod lifecycle `config.py`, or `create_users.sh` + CSV — see "User Provisioning: Choose Your Identity Source")
 - Slurm partition configuration with `AllowGroups` directives
 - Slurm accounting entries (accounts and user associations)
 - Storage directories on the shared file system with appropriate ownership and permissions
@@ -510,7 +564,7 @@ This approach reduces the administrative overhead of onboarding new teams from a
 
 ## Conclusion
 
-This post presented a reference architecture for building multi-tenant environments on Amazon SageMaker HyperPod with Slurm. By combining AWS IAM Identity Center for authentication (with SSMSessionRunAs for identity continuity), per-team SageMaker Domains with `CustomPosixUserConfig` for user/group identity management, Linux users and groups on the cluster for POSIX-level access control, and Slurm partitions with `AllowGroups` for workload isolation, organizations can enable multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
+This post presented a reference architecture for building multi-tenant environments on Amazon SageMaker HyperPod with Slurm. By combining AWS IAM Identity Center for authentication (with `SSMSessionRunAs` for identity continuity), a flexible identity-source story for Linux user and group provisioning (SSSD-backed directory via HyperPod lifecycle `config.py`, or `create_users.sh` + CSV), Linux users and groups on the cluster for POSIX-level access control, and Slurm partitions with `AllowGroups` for workload isolation, organizations can enable multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
 
 The Slurm architecture provides a natural multi-tenancy model through Linux's well-established user/group permission system. The approach leverages familiar Linux primitives — making it straightforward for organizations with existing HPC expertise to adopt.
 
