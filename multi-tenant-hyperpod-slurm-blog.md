@@ -6,7 +6,7 @@ Amazon SageMaker HyperPod is a purpose-built AI service that simplifies the mana
 
 As organizations scale their gen AI operations, a common challenge emerges: multiple teams within the same company need shared access to expensive GPU clusters while maintaining security boundaries, resource fairness, and operational independence. A data science team training large language models, a computer vision group running inference workloads, and a research team experimenting with new architectures — all may need access to the same HyperPod cluster. Without a well-designed multi-tenant architecture, organizations face uncontrolled resource consumption, weak isolation between teams, and administrative overhead that slows down innovation.
 
-In this post, we present a reference architecture for building a multi-tenant environment on Amazon SageMaker HyperPod with Slurm. This architecture leverages AWS Identity Center for centralized authentication, flexible user provisioning (via SSSD-backed directory integration or published lifecycle scripts), Slurm partitions for workload isolation, and Linux user/group permissions for access control. By the end of this guide, you will have a clear blueprint for enabling multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
+In this post, we present a reference architecture for building a multi-tenant environment on Amazon SageMaker HyperPod with Slurm. This architecture leverages AWS Identity Center for centralized authentication, flexible user provisioning (via the managed `sagemaker-user-management` Extensions API, or a self-hosted extensions scripts flow for SSSD-federated or local POSIX users), Slurm partitions for workload isolation, and Linux user/group permissions for access control. By the end of this guide, you will have a clear blueprint for enabling multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
 
 ## Architecture Overview
 
@@ -14,12 +14,15 @@ The following diagram illustrates the high-level architecture of a multi-tenant 
 
 ![Multi-tenant HyperPod Slurm Architecture](images/multi-tenant-hp-slurm.jpg)
 
+<!-- TODO (diagram): regenerate images/multi-tenant-hp-slurm.jpg to replace
+     any "Lifecycle Scripts" labels with "Extensions API / Extensions Scripts". -->
+
 
 The architecture is structured as a layered flow from left to right, connecting user identity through authorization controls and into isolated workload partitions on the cluster.
 
 **Users and authentication (left side).** On the far left, individual users from each team (User 1 from Team A, User 2 from Team B) interact with the system. Users authenticate through the AWS IAM Identity Center Portal, which federates with an external identity provider (such as Microsoft Entra ID) shown at the bottom-left. They then authenticate using `aws sso login` and start an SSM session to the cluster's login node. The `SSMSessionRunAs` attribute configured in the identity provider ensures that SSM sessions are launched with the correct Linux username matching the user's identity.
 
-**Linux user and group management (center).** At the cluster boundary, Linux users and groups enforce access control. Each team maps to a Linux group, and each user has a unique UID. The group membership, combined with Slurm's `AllowGroups` directive, determines which partitions each team can access. The identity source — whether a directory service via SSSD or a shared CSV consumed by `create_users.sh` — is a deployment choice (see "User Provisioning: Choose Your Identity Source" later in this post).
+**Linux user and group management (center).** At the cluster boundary, Linux users and groups enforce access control. Each team maps to a Linux group, and each user has a unique UID. The group membership, combined with Slurm's `AllowGroups` directive, determines which partitions each team can access. The identity source — whether declared via the managed `sagemaker-user-management` Extensions API, or materialized by self-hosted extensions scripts (for example, `extensions.sh` invoking `add_users.sh` against a provided `shared_users.txt` CSV, or configuring SSSD against a corporate directory) — is a deployment choice (see "User Provisioning: Choose Your Identity Source" later in this post).
 
 **HyperPod Slurm cluster (right side).** The cluster itself is depicted with a head node (controller), login nodes, and compute nodes organized into partitions. HyperPod Observability provides monitoring and dashboards across the cluster. Below, the cluster is partitioned into Partition A (Team A) and Partition B (Team B). The `AllowGroups` Slurm directive on each partition restricts job submission to the corresponding team's Linux group, providing workload isolation.
 
@@ -108,17 +111,117 @@ The foundation of Slurm-level isolation is the Linux user and group model. Each 
 
 4. **Home directory permissions** — Each user's home directory is typically created at mode `750`, making it readable by other members of the same team group. If you need complete isolation between team members — so that no user can read another's home directory — set the home-directory mode to `700` instead. Home directories live under `/fsx/<username>` on the shared FSx volume so they are consistent across nodes.
 
-5. **Consistency across nodes** — The same users and groups must exist on all cluster nodes (head node, compute nodes, login nodes) to ensure that Slurm can correctly schedule and execute jobs under the appropriate identity. The different provisioning options achieve this differently: SSSD-based options read from a central directory on every node automatically; file/script-based options use lifecycle scripts or SSH fan-out to apply the same user list across nodes.
+5. **Consistency across nodes** — The same users and groups must exist on all cluster nodes (head node, compute nodes, login nodes) to ensure that Slurm can correctly schedule and execute jobs under the appropriate identity. The different provisioning options achieve this differently: self-hosted extensions scripts write identical users on every node during `OnInitComplete` provisioning (and SSSD-backed configurations read from a central directory on every node automatically); the managed `sagemaker-user-management` Extensions API uses control-plane sweepers to keep every node — including scale-ups and replacements — converged to the declared roster.
 
 This approach creates a direct mapping between the corporate identity (managed in Entra ID and Identity Center) and the Linux identities on the cluster (which Slurm uses for job scheduling and file system permissions).
 
 ### User Provisioning: Choose Your Identity Source
 
-There is more than one way to put the right Linux users and groups on each cluster node. The right choice depends on your organization's existing identity infrastructure and how much integration you want. The three options below are not mutually exclusive, but one is typically chosen as the primary mechanism.
+There is more than one way to put the right Linux users and groups on each cluster node. Two production-ready paths are available; pick the one that fits your operating model. Both can be used alongside the same AWS Identity Center authentication story — they differ only in how the Linux identities are materialized on each node.
 
-#### Option 1 — SSSD with Active Directory or LDAP (recommended for enterprise)
+#### Path A — Managed Extensions API (`sagemaker-user-management`, recommended)
 
-SSSD (System Security Services Daemon) lets each cluster node authenticate users and resolve group membership directly against your corporate directory (Active Directory, OpenLDAP, FreeIPA). This is the AWS-recommended approach for enterprise HyperPod Slurm deployments, and it is **supported out of the box** via the AWS-published reference lifecycle scripts in [`awsome-distributed-ai/LifecycleScripts/base-config/config.py`](https://github.com/awslabs/awsome-distributed-ai/blob/main/1.architectures/5.sagemaker-hyperpod/LifecycleScripts/base-config/config.py). These scripts are applied by setting the HyperPod cluster's `LifeCycleConfig` to point at `base-config/`; setting `enable_sssd = True` and configuring the `SssdConfig` block then tells the lifecycle scripts to install and configure SSSD on every node during provisioning (not a native HyperPod console feature):
+The managed path is API-driven and declarative. The admin states the roster once on the cluster record and the framework propagates it to every node. There is no S3 bundle to host and no per-node action for scale-ups or replacements.
+
+The admin declares `userSources` on the cluster via `aws sagemaker create-cluster-extension` (or `update-cluster-extension`) with the extension name `sagemaker-user-management`. Two source types are supported in v1, and they can be combined in a single `userSources` list:
+
+- **`localUsers`** — an inline roster (`username`, `uid`, optional `slurmAccounts`, `homeDirectory`, `sshPublicKey`), plus optional source-level `slurmAccount` and `sharedFilesystemMount`. The framework creates POSIX users, home directories on the shared filesystem, SSH keypairs, and Slurm accounting associations on the controller.
+- **`activeDirectory`** — LDAPS connection details (URI, search base, bind DN) plus Secrets-Manager ARNs for the bind password and the LDAPS CA. The framework configures SSSD on every node; Active Directory remains the source of truth and no local accounts are created. Optional fields let you set `useFullyQualifiedNames`, `sshAllowGroups`, and `sudoersGroups` per node role.
+
+Every `Create`/`Update` is a full restatement of `userSources`, never a delta. The control plane stores it as desired-state on the cluster record and reconciles each node continuously, so a scaled-up or replaced node converges to the same effective roster as every other node with no re-run.
+
+**Create local users** — immediately after `create-cluster`, without waiting for `InService`:
+
+```bash
+aws sagemaker create-cluster-extension \
+  --cluster-arn <cluster-arn> \
+  --extension-name sagemaker-user-management \
+  --configuration-values '{
+    "sharedFilesystemMount": "/fsx",
+    "userSources": [
+      { "type": "localUsers",
+        "slurmAccount": "research",
+        "users": [
+          { "username": "user1-teama", "uid": 20001 },
+          { "username": "user2-teamb", "uid": 30001 }
+        ]
+      }
+    ]
+  }'
+```
+
+**Federate with Active Directory** — one `activeDirectory` source; SSSD resolves users at login; credentials are Secrets Manager ARNs:
+
+```bash
+aws sagemaker update-cluster-extension \
+  --cluster-arn <cluster-arn> \
+  --extension-name sagemaker-user-management \
+  --configuration-values '{
+    "userSources": [
+      { "type": "activeDirectory",
+        "ldapUri": ["ldaps://nlb-ds-xyzxyz.elb.us-west-2.amazonaws.com"],
+        "ldapSearchBase": "dc=hyperpod,dc=example,dc=com",
+        "ldapDefaultBindDn": "CN=ReadOnly,OU=Users,DC=hyperpod,DC=example,DC=com",
+        "ldapDefaultAuthtokSecretArn": "arn:aws:secretsmanager:us-west-2:111122223333:secret:ad-readonly-AbCdEf",
+        "ldapTlsCacertSecretArn":    "arn:aws:secretsmanager:us-west-2:111122223333:secret:ldaps-cert-GhIjKl",
+        "domain": "hyperpod.example.com",
+        "useFullyQualifiedNames": "ENABLED",
+        "sshAllowGroups": {
+          "controller": ["ClusterAdmin", "ubuntu"],
+          "login":      ["ClusterAdmin", "ClusterDev", "ubuntu"],
+          "compute":    ["ClusterAdmin", "ClusterDev", "ubuntu"]
+        }
+      }
+    ]
+  }'
+```
+
+**Local admins plus AD researchers** — two sources in one list; `useFullyQualifiedNames=ENABLED` prevents local-vs-directory username collisions:
+
+```bash
+aws sagemaker update-cluster-extension \
+  --cluster-arn <cluster-arn> \
+  --extension-name sagemaker-user-management \
+  --configuration-values '{
+    "sharedFilesystemMount": "/fsx",
+    "userSources": [
+      { "type": "localUsers",
+        "users": [
+          { "username": "hpadmin", "uid": 2100,
+            "sshPublicKey": "ssh-ed25519 AAAA...AdminKeyOnly admin@ops" }
+        ]
+      },
+      { "type": "activeDirectory",
+        "ldapUri": ["ldaps://nlb-ds-xyzxyz.elb.us-west-2.amazonaws.com"],
+        "ldapSearchBase": "dc=hyperpod,dc=example,dc=com",
+        "ldapDefaultBindDn": "CN=ReadOnly,OU=Users,DC=hyperpod,DC=example,DC=com",
+        "ldapDefaultAuthtokSecretArn": "arn:aws:secretsmanager:us-west-2:111122223333:secret:ad-readonly-AbCdEf",
+        "ldapTlsCacertSecretArn":    "arn:aws:secretsmanager:us-west-2:111122223333:secret:ldaps-cert-GhIjKl",
+        "domain": "hyperpod.example.com",
+        "useFullyQualifiedNames": "ENABLED"
+      }
+    ]
+  }'
+```
+
+Choose Path A when you are starting a new deployment, want a declarative API as the source of truth, or want to mix local admins with directory-federated researchers in one list.
+
+#### Path B — Self-hosted extensions scripts (`extensions.sh` + `config.py`)
+
+The self-hosted path is appropriate when you need deeper control than the managed API currently offers, or you already run a curated extensions bundle today.
+
+**Deployment contract.** Unlike legacy LifeCycleScripts, extensions scripts hook the `OnInitComplete` phase of node provisioning, not `OnCreate`. The HyperPod host agent still provisions each node natively; `extensions.sh` layers on only what the agent doesn't do. The cluster's `LifeCycleConfig` points at an S3 prefix containing `extensions.sh`, `config.py`, and the per-feature scripts in `extensions/`:
+
+```json
+"LifeCycleConfig": {
+    "SourceS3Uri": "s3://<bucket>/extensions/",
+    "OnInitComplete": "extensions.sh"
+}
+```
+
+At runtime, `extensions.sh` loads `config.py` to resolve toggles and then invokes the relevant per-feature scripts (for example, `extensions/sssd.sh`, `extensions/shared_users.sh` or `add_users.sh`, `extensions/ssh.sh`, `extensions/sudoers.sh`) on every node.
+
+**For SSSD with Active Directory or LDAP (recommended for enterprise)** — set `Config.enable_sssd = True` and configure the `SssdConfig` block. SSSD authenticates users and resolves group membership against your corporate directory (Active Directory, OpenLDAP, FreeIPA); UID/GID values come from the directory's `uidNumber` and `gidNumber` attributes.
 
 ```python
 class SssdConfig:
@@ -127,7 +230,7 @@ class SssdConfig:
     ldap_search_base = "dc=hyperpod,dc=abc123,dc=com"
     ldap_default_bind_dn = "CN=ReadOnly,OU=Users,OU=hyperpod,DC=hyperpod,DC=abc123,DC=com"
     ldap_default_authtok_type = "obfuscated_password"
-    ldap_default_authtok = "placeholder"      # obfuscated password
+    ldap_default_authtok = "placeholder"      # obfuscated password (or Secrets Manager ARN)
     ssh_auth_method = "publickey"
     override_homedir = "/fsx/%u"              # home on shared FSx
 
@@ -145,21 +248,11 @@ class SssdConfig:
     }
 ```
 
-With SSSD, UID/GID values come from the LDAP directory's `uidNumber` and `gidNumber` attributes. Adding a new user or changing a team membership happens in the directory — no SSH to each node, no CSV to re-upload. Home directories live on FSx (`override_homedir = "/fsx/%u"`), and the SSH / sudo policy is enforced per node role.
+`extensions/sssd.sh` runs on every node and installs `/etc/sssd/sssd.conf` with `access_provider = ldap`, `ldap_access_order = expire`, `ldap_account_expire_policy = ad`, so a user disabled in AD is locked out of the cluster. Adding a new user or changing a team membership happens in the directory — no SSH to each node, no CSV to re-upload.
 
-Choose this option if your organization already runs Active Directory, OpenLDAP, or FreeIPA, or is willing to stand one up (AWS Managed Microsoft AD is a straightforward choice).
+**For SSSD with Entra ID** — same `enable_sssd` path, with an LDAPS front-end to Entra. Entra ID doesn't natively expose LDAP, so this typically means standing up Entra Domain Services or a self-managed LDAP proxy that reads Entra via Microsoft Graph. The `SssdConfig` block above is unchanged; only `ldap_uri` and `ldap_search_base` point at the LDAPS gateway. The user and group POSIX attributes (`uidNumber`, `gidNumber`, `memberOf`) must be populated on each Entra user object (Microsoft Entra schema extensions or the built-in POSIX attributes with Entra Domain Services satisfy this). Note that Entra Domain Services is a Microsoft-managed service with its own hourly billing, replica-set configuration, and private connectivity requirements (private endpoint, Site-to-Site VPN, or ExpressRoute to your cluster VPC); account for these before adopting this option.
 
-#### Option 2 — SSSD with Entra ID (via an LDAPS front-end)
-
-If your identity source is Entra ID, you can still use the SSSD path by exposing an LDAPS endpoint in front of Entra. Entra ID doesn't natively expose LDAP, so this typically means standing up Entra Domain Services or a self-managed LDAP proxy that reads Entra via Microsoft Graph. The HyperPod `SssdConfig` block above is unchanged — only the `ldap_uri` and `ldap_search_base` point at the LDAPS gateway instead of a traditional directory. Note that Entra Domain Services is a Microsoft-managed service with its own hourly billing, replica-set configuration, and connectivity requirements (private endpoint, Site-to-Site VPN, or ExpressRoute to your cluster VPC); account for these before adopting this option.
-
-The user and group POSIX attributes (`uidNumber`, `gidNumber`, `memberOf`) must be populated on each Entra user object. Microsoft Entra schema extensions or the built-in POSIX attributes (available with Entra Domain Services) satisfy this.
-
-Choose this option if Entra ID is already your authoritative identity source for workforce users and you want to avoid running a parallel directory.
-
-#### Option 3 — Local users via `create_users.sh` (recommended for simpler deployments)
-
-For deployments without a corporate directory, AWS publishes a lifecycle script [`create_users.sh`](https://github.com/awslabs/awsome-distributed-ai/blob/main/1.architectures/5.sagemaker-hyperpod/LifecycleScripts/base-config/utils/create_users.sh) that creates local Linux users across all cluster nodes. The script is driven by a `shared_users.txt` CSV file:
+**For local POSIX users (no corporate directory)** — set `ExtensionsConfig.enable_shared_users = True` and ship a `shared_users.txt` CSV in the bundle:
 
 ```csv
 username,uid,home-directory
@@ -167,25 +260,22 @@ user1-teama,20001,/fsx/user1-teama
 user2-teamb,30001,/fsx/user2-teamb
 ```
 
-The script auto-detects the cluster topology from `/opt/ml/config/resource_config.json`, SSHes to each node (controller, login, compute — in parallel, up to 64 at a time), and runs `useradd` for each user not already present. Running it is idempotent: re-executing on an existing cluster adds new users and skips existing ones.
+`extensions/add_users.sh` runs on every node and creates each user with the specified UID and home directory, provisioning `/fsx/<username>` with mode 750. It is idempotent — re-executing on an existing cluster adds new users and skips existing ones — and it refuses to run when `enable_sssd = True`, so it cannot shadow a directory identity.
 
-```bash
-# Create users from the CSV (or CLI args)
-sudo ./create_users.sh                       # reads shared_users.txt
-sudo ./create_users.sh alice bob carol       # CLI mode, auto-assigns UIDs
-```
+Team-group membership is applied by adding `usermod -aG <group> <user>` steps alongside user creation (for example, as a thin wrapper or follow-on step inside the same extensions bundle). The CSV file and group assignments typically live in Git or in your extensions S3 bucket, giving an auditable change history.
 
-Team-group membership is applied by adding `usermod -aG <group> <user>` steps after user creation, either as a wrapper around `create_users.sh` or as follow-on lifecycle steps. The CSV file (and group assignments) typically lives in Git or in your lifecycle-config S3 bucket, giving you an auditable change history.
-
-Choose this option when you have a small, relatively stable user base, no corporate directory to integrate with, or a strong preference for file-based configuration that fits into your IaC pipelines.
+Choose Path B when you have a small, relatively stable user base and prefer file-based configuration oe when you already run a curated extensions bundle.
 
 #### Summary
 
-| Option | Identity source | HyperPod lifecycle support | Best for |
+| Path | Mechanism | Delivery | Best for |
 |---|---|---|---|
-| 1. SSSD + AD/LDAP | Central directory | ✓ Out of the box via `SssdConfig` | Enterprise orgs already running AD/LDAP |
-| 2. SSSD + Entra ID (via LDAPS) | Entra ID | ✓ (same SSSD config) | Entra-first orgs willing to run an LDAPS front-end |
-| 3. `create_users.sh` + CSV | Checked-in `shared_users.txt` | ✓ Published lifecycle script | Smaller teams; IaC-driven workflows |
+| A | `sagemaker-user-management` Extensions API (`localUsers` and/or `activeDirectory`) | `create-cluster-extension` / `update-cluster-extension`; cluster record is source of truth | New deployments; declarative API; mixing local admins with directory-federated users |
+| B — `enable_sssd` | `extensions/sssd.sh` + `SssdConfig` | S3 bundle via `OnInitComplete` | Already running an extensions scripts; need script-level control over SSSD |
+| B — `enable_shared_users` | `extensions/shared_users.sh` (or `add_users.sh`) + `shared_users.txt` | S3 bundle via `OnInitComplete` | Smaller clusters, no corporate directory, file-based IaC workflow |
+
+With either path, UID/GID stability is guaranteed: Path A pins UIDs explicitly in the inline roster or inherits them from AD's `uidNumber`; Path B pins UIDs via `shared_users.txt` or `uidNumber` under SSSD. Home directories live on FSx with mode 750 by default (switch to 700 if you need complete isolation between team members), and the SSH / sudo policy is enforced per node role.
+<br> Learn more on user management at: [User management on a SageMaker HyperPod Slurm cluster](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-slurm-user-management.html)
 
 ### Operator Privileges: Group-based sudo
 
@@ -197,7 +287,10 @@ Multi-tenant clusters typically need three tiers of Linux privilege:
 
 Team-lead groups are **supplementary** — a user's primary GID stays with their team (`TeamA`), and they are added to `TeamA-leads` as an additional group. Promoting or demoting a lead is a single `usermod -aG` / `gpasswd -d` operation without disturbing their team membership.
 
-Install the following drop-in on every cluster node at `/etc/sudoers.d/mg-multi-tenant` (owner `root:root`, mode `0440`). The file is provided in the repository at `scripts/sudoers.d/mg-multi-tenant`. Install it via a HyperPod lifecycle script so that dynamically-provisioned compute nodes receive it automatically:
+Install the following drop-in on every cluster node at `/etc/sudoers.d/multi-tenant` (owner `root:root`, mode `0440`). Install it via one of the two paths from the previous section:
+
+- **With self-hosted extensions scripts (Path B):** `extensions.sh` reads `config.py` on each node during `OnInitComplete` and, when `enable_sudoers_config = True`, invokes a per-feature step (for example, `extensions/sudoers.sh`) to write the drop-in — analogous to how it invokes `extensions/shared_users.sh` (or `add_users.sh`) and the SSSD step.
+- **With the managed Extensions API (Path A):** the equivalent policy is declared via the `activeDirectory.sudoersGroups` field (per node role) on the `sagemaker-user-management` extension; the framework writes the sudoers drop-in on every node and converges new nodes automatically.
 
 ```
 # Full sudo for the Admin group
@@ -238,7 +331,7 @@ With this configuration:
 - Users in the `TeamB` Linux group can only submit jobs to `partition-team-b`.
 - Attempting to submit a job to another team's partition results in a Slurm permission error.
 
-> **Note on group membership and cache refresh:** `slurmctld` caches the per-partition list of permitted user IDs resolved from `AllowGroups` and only refreshes it on daemon restart, `scontrol reconfigure`, or when the partition's `AllowGroups` value is reassigned. After adding or removing users from a team group — regardless of which identity source (SSSD, `create_users.sh`, etc.) you used — run `sudo scontrol reconfigure` on the controller so the new membership takes effect for partition access.
+> **Note on group membership and cache refresh:** `slurmctld` caches the per-partition list of permitted user IDs resolved from `AllowGroups` and only refreshes it on daemon restart, `scontrol reconfigure`, or when the partition's `AllowGroups` value is reassigned. After adding or removing users from a team group — regardless of which path you used (the Extensions API's `userSources`, SSSD via self-hosted extensions scripts, local users via `shared_users.txt`, etc.) — run `sudo scontrol reconfigure` on the controller so the new membership takes effect for partition access.
 
 This provides workload isolation that is conceptually similar to namespace-scoped RBAC in the EKS architecture. Each team can only consume resources from their designated partition, and they cannot interfere with or observe jobs running in another team's partition.
 
@@ -310,7 +403,7 @@ In a multi-tenant cluster, knowing *who used what* is as important as enforcing 
 Each team maps to a Linux group (`TeamA`, `TeamB`), and the same team names are used as Slurm accounts, creating a clean identity chain from the IdP down to accounting records:
 
 ```
-Identity source (SSSD/LDAP or CSV)
+Identity source (Extensions API `userSources`, SSSD/LDAP, or `shared_users.txt`)
     → Linux group TeamA (GID 2001)
         → Slurm account teama
             → sacct records: Account=teama, User=user1-teama
@@ -372,11 +465,73 @@ A complete, production-tested implementation of this chargeback pipeline is docu
 
 The foundation established in this blog — per-team Linux groups, Slurm accounts, and user associations — is a direct prerequisite for that pipeline. Once the accounts and associations are in place, the chargeback guide can be followed without modification.
 
+## Storage
+
+Shared storage is a critical component of multi-tenant AI/ML environments. Teams need high-performance file systems for training data, checkpoints, and model artifacts, while maintaining appropriate access boundaries between teams.
+
+### POSIX-Compliant File Systems
+
+For workloads that require a shared, high-performance POSIX file system — which is common for distributed training where multiple nodes read the same dataset or write checkpoints — consider the following options:
+
+- **Amazon FSx for Lustre** — Provides high-throughput, low-latency parallel file system access, ideal for large-scale training workloads that need to read large datasets at high speed.
+- **Amazon FSx for OpenZFS** — Offers a general-purpose file system with strong POSIX semantics, snapshots, and compression. Well-suited for workloads that need traditional file system features alongside high performance.
+
+The storage layout typically follows this structure:
+
+- **Per-team shared directories** — Each team has a shared directory (e.g., `/fsx/TeamA`, `/fsx/TeamB`) for datasets, models, and artifacts that all team members need to access. Directory ownership is set to the team's GID with group read/write permissions.
+- **Per-user home directories** — Each user has a personal home directory (e.g., `/fsx/user1`, `/fsx/user2`) for individual work, experiments, and scripts.
+
+Because Slurm jobs execute directly as the submitting Linux user (unlike container-based environments that require security context configuration), the POSIX permission model works naturally. When User 1 from Team A submits a job, it runs as UID `20001` with primary GID `2001` (TeamA). Files created by the job are automatically owned by the correct user and group, and the standard Linux permission model (`chmod`, `chown`, ACLs) governs access.
+
+```bash
+# Example directory structure and permissions
+/fsx/TeamA/     # drwxrws--- root:TeamA (GID 2001)
+/fsx/TeamB/     # drwxrws--- root:TeamB (GID 3001)
+/fsx/user1/     # drwxr-x--- user1:TeamA (mode 750 — team-group readable)
+/fsx/user2/     # drwxr-x--- user2:TeamB (mode 750 — team-group readable)
+```
+
+The setgid bit (`s`) on team directories ensures that new files created within the directory inherit the team's group ownership, regardless of which team member creates them.
+
+### Amazon S3 Storage
+
+For object storage, access to S3 buckets from the cluster can be managed through instance profiles or by using team-specific AWS credentials. Since users connect to the cluster via SSM with their own Identity Center credentials, they can use the AWS CLI with their team's permission set to access S3 directly. Alternatively, the cluster's instance profile can grant broad S3 access, with POSIX permissions on locally-cached data providing the isolation layer.
+
+## HyperPod Observability
+
+Visibility into cluster health, workload performance, and resource utilization is essential for all teams. HyperPod Observability provides built-in monitoring and dashboarding capabilities through Amazon Managed Grafana.
+
+### Configuring Team Access to Grafana
+
+Teams need access to observability dashboards to monitor their workloads, troubleshoot performance issues, and understand resource consumption. However, in a multi-tenant environment, this access should typically be read-only:
+
+1. **Configure Identity Center authentication for Amazon Managed Grafana** — In the Amazon Managed Grafana console, navigate to Authentication and enable AWS IAM Identity Center. This allows users to sign in to Grafana with the same corporate credentials they use for SageMaker Studio.
+
+2. **Assign team groups as Viewers** — Map the Identity Center groups (TeamA, TeamB) to the Grafana Viewer role. This grants team members read-only access to dashboards and metrics without the ability to modify dashboards or data sources.
+
+3. **Admin access** — Assign the Admin group to the Grafana Admin or Editor role, allowing them to create and modify dashboards, configure alerting, and manage data sources.
+
+4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by partition or user/group, allowing each team to see only their own workload metrics. Amazon Managed Grafana supports Grafana Teams (a Grafana-native RBAC concept, distinct from the organizational teams in this architecture), which can be mapped from Identity Center groups to restrict dashboard visibility and provide an additional layer of data isolation.
+
+Learn more: [SageMaker HyperPod cluster resources monitoring](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-cluster-observability-slurm.html)
+
+## Conclusion
+
+This post presented a reference architecture for building multi-tenant environments on Amazon SageMaker HyperPod with Slurm. By combining AWS IAM Identity Center for authentication (with `SSMSessionRunAs` for identity continuity), a flexible identity-source story for Linux user and group provisioning (managed `sagemaker-user-management` Extensions API, or self-hosted extensions scripts for SSSD or local POSIX users), Linux users and groups on the cluster for POSIX-level access control, and Slurm partitions with `AllowGroups` for workload isolation, organizations can enable multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
+
+The Slurm architecture provides a natural multi-tenancy model through Linux's well-established user/group permission system. The approach leverages familiar Linux primitives — making it straightforward for organizations with existing HPC expertise to adopt.
+
+While this approach requires assembling and configuring multiple components, the result is a high degree of control and customization that can be tailored to each organization's specific security, compliance, and operational requirements. The foundational patterns — identity federation, user/group management, partition isolation, and fair-share scheduling — are well-proven in the HPC community and scale to large deployments.
+
+---
+
+# Re-evaluate the below section - we can probably skip these:
+
 ## SSM Session Access
 
 Users in the Slurm architecture connect to the cluster's login nodes via AWS Systems Manager (SSM) sessions. As a best practice, users should connect to dedicated login nodes rather than the head node — login nodes are designed to handle interactive user sessions and job submission, while the head node should be reserved for cluster management and Slurm controller operations. SSM provides a managed, secure connection without requiring inbound firewall rules or SSH key management.
 
-> **Note:** SSM maps the incoming identity to a Linux user via the `SSMSessionRunAs` attribute. For this to succeed, the Linux user must already exist on the target node at the time of the session. Team users are provisioned by whichever identity source you chose (SSSD-backed directory or `create_users.sh` + CSV — see "User Provisioning: Choose Your Identity Source" above). Operators or admins who are not covered by your tenant user source — such as cluster bootstrap engineers or on-call administrators — must have their Linux accounts created out-of-band (for example, via a lifecycle script or a one-time `useradd` on all nodes) before their first SSM session.
+> **Note:** SSM maps the incoming identity to a Linux user via the `SSMSessionRunAs` attribute. For this to succeed, the Linux user must already exist on the target node at the time of the session. Team users are provisioned by whichever path you chose (the managed `sagemaker-user-management` Extensions API, or self-hosted extensions scripts — see "User Provisioning: Choose Your Identity Source" above). Operators or admins who are not covered by your tenant user source — such as cluster bootstrap engineers or on-call administrators — must have their Linux accounts created out-of-band (for example, as a `localUsers` entry on the Extensions API, as a bootstrap step in the extensions scripts, or a one-time `useradd` on all nodes) before their first SSM session.
 
 ### SSMSessionRunAs Configuration
 
@@ -429,7 +584,10 @@ A TeamA user can SSH into the login node and into compute-team-a nodes, but not 
 
 ### Configuration
 
-The script `scripts/configure_sshd_multi_tenant.sh` writes `/etc/ssh/sshd_config.d/50-mg-multi-tenant.conf` with the correct `AllowGroups` value for the node's role, then restarts `sshd`. The node role is auto-detected from `/opt/ml/config/resource_config.json` (or falls back to hostname pattern match). Invoke this script from a HyperPod lifecycle script so newly-provisioned compute nodes receive the policy automatically:
+The script `scripts/configure_sshd_multi_tenant.sh` writes `/etc/ssh/sshd_config.d/50-multi-tenant.conf` with the correct `AllowGroups` value for the node's role, then restarts `sshd`. The node role is auto-detected from `/opt/ml/config/resource_config.json` (or falls back to hostname pattern match). Install it via one of the two paths from "User Provisioning: Choose Your Identity Source":
+
+- **With self-hosted extensions scripts (Path B):** `extensions.sh` reads `config.py` on each node during `OnInitComplete` and, when `enable_ssh_config = True`, invokes `extensions/ssh.sh` to write the role-appropriate `AllowGroups` drop-in and restart `sshd`.
+- **With the managed Extensions API (Path A):** the equivalent is declared via the `activeDirectory.sshAllowGroups` field (per node role: `controller`, `login`, `compute`) on the `sagemaker-user-management` extension; the framework writes the sshd drop-in on every node and converges new nodes automatically.
 
 ```
 AllowGroups Admin TeamA                   # example for compute-team-a
@@ -473,38 +631,6 @@ aws ec2 authorize-security-group-ingress \
   --source-group <bastion-sg-id>
 ```
 
-## Storage
-
-Shared storage is a critical component of multi-tenant AI/ML environments. Teams need high-performance file systems for training data, checkpoints, and model artifacts, while maintaining appropriate access boundaries between teams.
-
-### POSIX-Compliant File Systems
-
-For workloads that require a shared, high-performance POSIX file system — which is common for distributed training where multiple nodes read the same dataset or write checkpoints — consider the following options:
-
-- **Amazon FSx for Lustre** — Provides high-throughput, low-latency parallel file system access, ideal for large-scale training workloads that need to read large datasets at high speed.
-- **Amazon FSx for OpenZFS** — Offers a general-purpose file system with strong POSIX semantics, snapshots, and compression. Well-suited for workloads that need traditional file system features alongside high performance.
-
-The storage layout typically follows this structure:
-
-- **Per-team shared directories** — Each team has a shared directory (e.g., `/fsx/TeamA`, `/fsx/TeamB`) for datasets, models, and artifacts that all team members need to access. Directory ownership is set to the team's GID with group read/write permissions.
-- **Per-user home directories** — Each user has a personal home directory (e.g., `/fsx/user1`, `/fsx/user2`) for individual work, experiments, and scripts.
-
-Because Slurm jobs execute directly as the submitting Linux user (unlike container-based environments that require security context configuration), the POSIX permission model works naturally. When User 1 from Team A submits a job, it runs as UID `20001` with primary GID `2001` (TeamA). Files created by the job are automatically owned by the correct user and group, and the standard Linux permission model (`chmod`, `chown`, ACLs) governs access.
-
-```bash
-# Example directory structure and permissions
-/fsx/TeamA/     # drwxrws--- root:TeamA (GID 2001)
-/fsx/TeamB/     # drwxrws--- root:TeamB (GID 3001)
-/fsx/user1/     # drwxr-x--- user1:TeamA (mode 750 — team-group readable)
-/fsx/user2/     # drwxr-x--- user2:TeamB (mode 750 — team-group readable)
-```
-
-The setgid bit (`s`) on team directories ensures that new files created within the directory inherit the team's group ownership, regardless of which team member creates them.
-
-### Amazon S3 Storage
-
-For object storage, access to S3 buckets from the cluster can be managed through instance profiles or by using team-specific AWS credentials. Since users connect to the cluster via SSM with their own Identity Center credentials, they can use the AWS CLI with their team's permission set to access S3 directly. Alternatively, the cluster's instance profile can grant broad S3 access, with POSIX permissions on locally-cached data providing the isolation layer.
-
 ## Distributed Training with Slurm
 
 The primary workload pattern on a HyperPod Slurm cluster is distributed training using Slurm job submission. Teams submit training jobs using `sbatch`, `srun`, or `salloc`, specifying their team's partition.
@@ -532,45 +658,19 @@ Because the user submits the job as their Linux identity (enforced by SSM's `Run
 
 For distributed training across multiple nodes, Slurm handles the coordination of launching processes on allocated nodes. Since all nodes have the same user/group configuration, the training processes can read shared data from `/fsx/TeamA/` and write checkpoints without permission issues.
 
-## HyperPod Observability
-
-Visibility into cluster health, workload performance, and resource utilization is essential for all teams. HyperPod Observability provides built-in monitoring and dashboarding capabilities through Amazon Managed Grafana.
-
-### Configuring Team Access to Grafana
-
-Teams need access to observability dashboards to monitor their workloads, troubleshoot performance issues, and understand resource consumption. However, in a multi-tenant environment, this access should typically be read-only:
-
-1. **Configure Identity Center authentication for Amazon Managed Grafana** — In the Amazon Managed Grafana console, navigate to Authentication and enable AWS IAM Identity Center. This allows users to sign in to Grafana with the same corporate credentials they use for SageMaker Studio.
-
-2. **Assign team groups as Viewers** — Map the Identity Center groups (TeamA, TeamB) to the Grafana Viewer role. This grants team members read-only access to dashboards and metrics without the ability to modify dashboards or data sources.
-
-3. **Admin access** — Assign the Admin group to the Grafana Admin or Editor role, allowing them to create and modify dashboards, configure alerting, and manage data sources.
-
-4. **Team-specific dashboards** — Consider creating dedicated dashboards that filter data by partition or user/group, allowing each team to see only their own workload metrics. Amazon Managed Grafana supports Grafana Teams (a Grafana-native RBAC concept, distinct from the organizational teams in this architecture), which can be mapped from Identity Center groups to restrict dashboard visibility and provide an additional layer of data isolation.
-
 ## Getting Started
 
 To simplify the deployment of this multi-tenant architecture, we recommend an infrastructure-as-code approach that automates the provisioning of all per-team resources. A CloudFormation template or CDK stack can be designed to accept a team name as input and automatically create:
 
 - The team IAM role with appropriate policies and trust relationships
 - The Identity Center permission set with SSM-specific policies for the team
-- Linux user and group provisioning on cluster nodes via the chosen identity source (SSSD-backed directory via HyperPod lifecycle `config.py`, or `create_users.sh` + CSV — see "User Provisioning: Choose Your Identity Source")
+- Linux user and group provisioning on cluster nodes via the chosen path (managed `sagemaker-user-management` Extensions API, or self-hosted extensions scripts with `enable_sssd` or `enable_shared_users` — see "User Provisioning: Choose Your Identity Source")
 - Slurm partition configuration with `AllowGroups` directives
 - Slurm accounting entries (accounts and user associations)
 - Storage directories on the shared file system with appropriate ownership and permissions
 - A default S3 bucket or prefix for the team
 
 This approach reduces the administrative overhead of onboarding new teams from a multi-step manual process to a single deployment action, reducing errors and ensuring consistency across teams.
-
-## Conclusion
-
-This post presented a reference architecture for building multi-tenant environments on Amazon SageMaker HyperPod with Slurm. By combining AWS IAM Identity Center for authentication (with `SSMSessionRunAs` for identity continuity), a flexible identity-source story for Linux user and group provisioning (SSSD-backed directory via HyperPod lifecycle `config.py`, or `create_users.sh` + CSV), Linux users and groups on the cluster for POSIX-level access control, and Slurm partitions with `AllowGroups` for workload isolation, organizations can enable multiple teams to securely and efficiently share a single HyperPod Slurm cluster.
-
-The Slurm architecture provides a natural multi-tenancy model through Linux's well-established user/group permission system. The approach leverages familiar Linux primitives — making it straightforward for organizations with existing HPC expertise to adopt.
-
-While this approach requires assembling and configuring multiple components, the result is a high degree of control and customization that can be tailored to each organization's specific security, compliance, and operational requirements. The foundational patterns — identity federation, user/group management, partition isolation, and fair-share scheduling — are well-proven in the HPC community and scale to large deployments.
-
----
 
 # Appendix A: CLI Access with Identity Center Permission Sets
 
@@ -855,11 +955,11 @@ This appendix documents the current limitations and gaps identified in the multi
 
 ## Gap 1: Managed Linux User/Group Provisioning from Domain Configuration
 
-**Current state:** The creation of Linux users and groups on the HyperPod Slurm cluster nodes based on the SageMaker Domain configuration is currently achieved through custom lifecycle scripts. There is no managed implementation that automatically provisions Linux users and groups from the domain's `CustomPosixUserConfig` settings, or that keeps them in sync as user profiles are added, modified, or removed from the domain.
+**Current state:** The creation of Linux users and groups on the HyperPod Slurm cluster nodes based on the SageMaker Domain configuration is currently achieved through custom lifecycle scripts or self-hosted extensions scripts. There is no managed implementation that automatically provisions Linux users and groups from the domain's `CustomPosixUserConfig` settings, or that keeps them in sync as user profiles are added, modified, or removed from the domain.
 
 **Impact:** Administrators must build and maintain custom automation to translate SageMaker Domain user profiles into Linux identities on every cluster node. When a new user is onboarded to a domain or an existing user's POSIX configuration changes, the cluster nodes do not automatically reflect these changes — requiring manual intervention or custom event-driven pipelines. This creates operational overhead and introduces risk of drift between the authoritative identity source (the SageMaker Domain) and the cluster's local user database.
 
-**Workaround:** Implement lifecycle scripts that run during node provisioning to create users and groups based on the current domain configuration. For ongoing synchronization, build an event-driven architecture using EventBridge to detect changes in SageMaker Domain user profiles and trigger SSM Run Command executions across all cluster nodes. Alternatively, run a periodic reconciliation job that queries the SageMaker API (`ListDomains`, `ListUserProfiles`, `DescribeUserProfile`) and applies incremental changes. See Appendix B for a detailed example of the provisioning approach.
+**Workaround:** Implement lifecycle scripts or extensions scripts that run during node provisioning to create users and groups based on the current domain configuration. For ongoing synchronization, build an event-driven architecture using EventBridge to detect changes in SageMaker Domain user profiles and trigger SSM Run Command executions across all cluster nodes. Alternatively, run a periodic reconciliation job that queries the SageMaker API (`ListDomains`, `ListUserProfiles`, `DescribeUserProfile`) and applies incremental changes. See Appendix B for a detailed example of the provisioning approach.
 
 ## Gap 2: Partition-to-Domain Mapping Attribute
 
@@ -881,7 +981,7 @@ This appendix documents the current limitations and gaps identified in the multi
 
 **Current state:** There is no dedicated attribute in the SageMaker Domain or HyperPod configuration to specify the name and path of the team's shared directory on the file system.
 
-**Impact:** Administrators must establish a convention for team directory naming and manually ensure that mount paths, lifecycle scripts, and file system directory structures are all consistent.
+**Impact:** Administrators must establish a convention for team directory naming and manually ensure that mount paths, provisioning scripts (lifecycle or extensions), and file system directory structures are all consistent.
 
 **Workaround:** Adopt a naming convention based on the team's group name or GID (e.g., `/fsx/<group-name>/` or `/fsx/gid-<GID>/`). Document this convention and encode it in the infrastructure-as-code templates that provision per-team resources. As noted in Gap 2, this gap further reinforces the case for a dedicated HyperPod Slurm configuration section at the domain level, where Slurm-specific attributes — including the team's shared directory path and partition name — can be centrally defined alongside the existing domain settings.
 
