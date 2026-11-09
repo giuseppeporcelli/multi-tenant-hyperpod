@@ -1,0 +1,1487 @@
+<mxfile host="drawio.corp.amazon.com" modified="2026-11-06T14:05:03.609Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36" etag="3uyYVf75IZtUMD3Np5uk" version="21.7.4" type="device">
+  <diagram name="Page-1" id="dspV9QThwaBze6E94feR">
+    <mxGraphModel dx="3149" dy="1129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" value="Background" parent="0" />
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-42" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-52" value="SageMaker Domain Team B" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="314" y="383" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-34" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-26" value="SageMaker Domain&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="314" y="127.75" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-1" target="ak8oCKWvUe_li1kfUHWh-20" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-1" target="ak8oCKWvUe_li1kfUHWh-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-1" value="User 1&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="-100" y="221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-2" target="ak8oCKWvUe_li1kfUHWh-20" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-2" target="ak8oCKWvUe_li1kfUHWh-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-2" value="User 2&lt;br style=&quot;font-size: 13px;&quot;&gt;Team B" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="-100" y="393.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-3" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="340" y="144" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-4" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="340" y="399" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-8" target="g1EIm3SgnFw1OmNYjrQS-49" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-8" target="g1EIm3SgnFw1OmNYjrQS-53" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-8" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="-90" y="543" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-18" value="External&lt;br style=&quot;font-size: 13px;&quot;&gt;identity provider" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/identity/Azure_Active_Directory.svg;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="70" y="555" width="70" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-33" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-35" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-36" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" parent="1" vertex="1">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-39" target="g1EIm3SgnFw1OmNYjrQS-36" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-39" target="g1EIm3SgnFw1OmNYjrQS-35" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-39" value="HyperPod Task Governance" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3c300;strokeColor=none;fontColor=#404040;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="720" y="221" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-40" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-43" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-44" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-45" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-46" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-47" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-48" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-49" target="142bShHOqriku7zQ62-d-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="556" />
+              <mxPoint x="-260" y="700" />
+              <mxPoint x="290" y="700" />
+              <mxPoint x="290" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-49" value="TeamA permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="-210" y="543" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-53" target="142bShHOqriku7zQ62-d-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="618" />
+              <mxPoint x="-250" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-53" value="TeamB permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="-210" y="604.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-55" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" parent="1" vertex="1">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-56" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.472;exitY=0.94;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeColor=#ffffff;" parent="1" source="g1EIm3SgnFw1OmNYjrQS-57" target="g1EIm3SgnFw1OmNYjrQS-59" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-58" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamB-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="627" y="367" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-59" value="managed/custom&lt;br style=&quot;font-size: 13px;&quot;&gt;RBAC policies" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/internet_of_things/Time_Series_Insights_Access_Policies.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="631.1" y="487" width="27.79" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-1" target="g1EIm3SgnFw1OmNYjrQS-57" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=-0.136;entryY=0.484;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-3" target="g1EIm3SgnFw1OmNYjrQS-58" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="448.5" as="sourcePoint" />
+            <mxPoint x="705" y="432.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="550" y="536" />
+              <mxPoint x="550" y="391" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.946;exitY=0.347;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-57" target="g1EIm3SgnFw1OmNYjrQS-35" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="293" as="sourcePoint" />
+            <mxPoint x="915" y="277" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="267" />
+              <mxPoint x="680" y="283" />
+              <mxPoint x="778" y="283" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-58" target="g1EIm3SgnFw1OmNYjrQS-36" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="563" as="sourcePoint" />
+            <mxPoint x="907" y="620" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="710" y="392" />
+              <mxPoint x="710" y="563" />
+              <mxPoint x="1075" y="563" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-66" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#3399ff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" target="g1EIm3SgnFw1OmNYjrQS-18" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="168.97" y="417" as="sourcePoint" />
+            <mxPoint x="120.00448275862047" y="603" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="168.97" y="461" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-73" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" target="g1EIm3SgnFw1OmNYjrQS-8" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="582" as="sourcePoint" />
+            <mxPoint x="-70" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="23cTOVTyo6pr3XDczECg-2" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#ff6200;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="233" as="sourcePoint" />
+            <mxPoint x="570" y="183" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-38" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" parent="23cTOVTyo6pr3XDczECg-2" vertex="1" connectable="0">
+          <mxGeometry x="0.0264" y="-1" relative="1" as="geometry">
+            <mxPoint x="-1" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="23cTOVTyo6pr3XDczECg-3" value="" style="endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#ff6200;jumpSize=6;strokeWidth=3;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="g1EIm3SgnFw1OmNYjrQS-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="436.90999999999997" as="sourcePoint" />
+            <mxPoint x="570" y="438" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-1" value="TeamA-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="355.52" y="261" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-3" value="TeamB-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="355.52" y="514.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-6" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fsx_for_lustre;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="570" y="623" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-7" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;FSx for Lustre/OpenZFS file system(s)&lt;/span&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;/fsx/TeamA ... /fsx/TeamB&amp;nbsp; (per-team shared directories)&lt;br style=&quot;font-size: 14px;&quot;&gt;/home/User1 ... /home/User2 (per-user home directories)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8900fd;strokeColor=none;fontSize=14;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="640" y="623" width="650" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-9" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="951" y="623" as="sourcePoint" />
+            <mxPoint x="950.73" y="583" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-57" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamA-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="627" y="249.25" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-10" target="g1EIm3SgnFw1OmNYjrQS-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310" y="323" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-260" y="355" />
+              <mxPoint x="-260" y="193" />
+              <mxPoint x="169" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ff6200;strokeWidth=3;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-10" target="g1EIm3SgnFw1OmNYjrQS-34" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="344" />
+              <mxPoint x="-260" y="63" />
+              <mxPoint x="930" y="63" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-33" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;with kubectl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=#000000;fontFamily=Amazon Ember;fontStyle=1" parent="ak8oCKWvUe_li1kfUHWh-32" vertex="1" connectable="0">
+          <mxGeometry x="0.293" y="3" relative="1" as="geometry">
+            <mxPoint x="-104" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-10" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="-240" y="313.5" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-20" target="g1EIm3SgnFw1OmNYjrQS-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-20" target="g1EIm3SgnFw1OmNYjrQS-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="ak8oCKWvUe_li1kfUHWh-20" target="g1EIm3SgnFw1OmNYjrQS-52" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-20" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center Portal" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="140" y="313.5" width="58" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="g1EIm3SgnFw1OmNYjrQS-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ffffff;shape=mxgraph.mscae.intune.company_portal;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="144" y="273" width="50" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-28" value="&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;CLI access&lt;/span&gt;&lt;br style=&quot;border-color: rgb(218, 220, 224); font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;aws sso login&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="-175" y="323.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-36" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="570" y="720" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-37" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Per-team or shared S3 buckets&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8900fd;strokeColor=none;fontSize=14;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="640" y="720" width="650" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ak8oCKWvUe_li1kfUHWh-40" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="498.99551113190984" y="455.50349805714666" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.028;entryY=0.495;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="142bShHOqriku7zQ62-d-1" target="g1EIm3SgnFw1OmNYjrQS-57" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-1" value="TeamA-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="355.51" y="631" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" parent="1" source="142bShHOqriku7zQ62-d-2" target="g1EIm3SgnFw1OmNYjrQS-58" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="723" />
+              <mxPoint x="540" y="392" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="142bShHOqriku7zQ62-d-2" value="TeamB-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" parent="1" vertex="1">
+          <mxGeometry x="355.51" y="710" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-14" value="1-Base" visible="0" parent="0" />
+        <mxCell id="8h5D5u195L-59-B77_7I-15" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-17" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-31" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-32" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-33" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-37" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-38" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-39" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-40" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-41" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-42" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-43" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-48" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-49" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-14">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-85" value="2-Identity" visible="0" parent="0" />
+        <mxCell id="8h5D5u195L-59-B77_7I-86" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-88" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-90" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" source="8h5D5u195L-59-B77_7I-92" target="8h5D5u195L-59-B77_7I-146">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-92" value="User 1&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="-100" y="221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-93" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" source="8h5D5u195L-59-B77_7I-95" target="8h5D5u195L-59-B77_7I-146">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-95" value="User 2&lt;br style=&quot;font-size: 13px;&quot;&gt;Team B" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="-100" y="393.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" source="8h5D5u195L-59-B77_7I-100" target="8h5D5u195L-59-B77_7I-116">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-99" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" source="8h5D5u195L-59-B77_7I-100" target="8h5D5u195L-59-B77_7I-118">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-100" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="-90" y="543" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-101" value="External&lt;br style=&quot;font-size: 13px;&quot;&gt;identity provider" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/identity/Azure_Active_Directory.svg;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="70" y="555" width="70" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-102" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-103" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-104" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-108" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-109" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-110" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-111" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-112" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-113" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-114" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-116" value="TeamA permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="-210" y="543" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-118" value="TeamB permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="-210" y="604.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-119" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-120" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-128" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#3399ff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" target="8h5D5u195L-59-B77_7I-101">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="168.97" y="417" as="sourcePoint" />
+            <mxPoint x="120.00448275862047" y="603" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="168.97" y="461" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-129" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" target="8h5D5u195L-59-B77_7I-100">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="582" as="sourcePoint" />
+            <mxPoint x="-70" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-143" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-85" source="8h5D5u195L-59-B77_7I-146">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="314" y="227.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-146" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center Portal" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="140" y="313.5" width="58" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-147" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ffffff;shape=mxgraph.mscae.intune.company_portal;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-85">
+          <mxGeometry x="144" y="273" width="50" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-156" value="3-CLI Path" visible="0" parent="0" />
+        <mxCell id="8h5D5u195L-59-B77_7I-157" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-159" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-161" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-163" target="8h5D5u195L-59-B77_7I-217">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-162" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-163" target="8h5D5u195L-59-B77_7I-213">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-163" value="User 1&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-100" y="221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-164" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-166" target="8h5D5u195L-59-B77_7I-217">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-165" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-166" target="8h5D5u195L-59-B77_7I-213">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-166" value="User 2&lt;br style=&quot;font-size: 13px;&quot;&gt;Team B" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-100" y="393.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-169" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-171" target="8h5D5u195L-59-B77_7I-187">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-170" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-171" target="8h5D5u195L-59-B77_7I-189">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-171" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-90" y="543" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-172" value="External&lt;br style=&quot;font-size: 13px;&quot;&gt;identity provider" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/identity/Azure_Active_Directory.svg;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="70" y="555" width="70" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-173" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-174" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-175" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-179" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-180" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-181" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-182" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-183" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-184" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-185" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-186" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-187" target="8h5D5u195L-59-B77_7I-224">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="556" />
+              <mxPoint x="-260" y="700" />
+              <mxPoint x="290" y="700" />
+              <mxPoint x="290" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-187" value="TeamA permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-210" y="543" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-188" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-189" target="8h5D5u195L-59-B77_7I-226">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="618" />
+              <mxPoint x="-250" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-189" value="TeamB permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-210" y="604.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-190" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-191" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-192" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.472;exitY=0.94;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeColor=#ffffff;" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-209" target="8h5D5u195L-59-B77_7I-194">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-193" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamB-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="627" y="367" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-194" value="managed/custom&lt;br style=&quot;font-size: 13px;&quot;&gt;RBAC policies" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/internet_of_things/Time_Series_Insights_Access_Policies.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="631.1" y="487" width="27.79" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-197" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.946;exitY=0.347;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-209" target="8h5D5u195L-59-B77_7I-174">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="293" as="sourcePoint" />
+            <mxPoint x="915" y="277" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="267" />
+              <mxPoint x="680" y="283" />
+              <mxPoint x="778" y="283" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-198" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-193" target="8h5D5u195L-59-B77_7I-175">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="563" as="sourcePoint" />
+            <mxPoint x="907" y="620" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="710" y="392" />
+              <mxPoint x="710" y="563" />
+              <mxPoint x="1075" y="563" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-199" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#3399ff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" target="8h5D5u195L-59-B77_7I-172">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="168.97" y="417" as="sourcePoint" />
+            <mxPoint x="120.00448275862047" y="603" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="168.97" y="461" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-200" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" target="8h5D5u195L-59-B77_7I-171">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="582" as="sourcePoint" />
+            <mxPoint x="-70" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-209" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamA-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="627" y="249.25" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-210" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-213" target="8h5D5u195L-59-B77_7I-218">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310" y="323" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-260" y="355" />
+              <mxPoint x="-260" y="193" />
+              <mxPoint x="169" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-211" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ff6200;strokeWidth=3;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-213" target="8h5D5u195L-59-B77_7I-159">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="344" />
+              <mxPoint x="-260" y="63" />
+              <mxPoint x="930" y="63" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-212" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;with kubectl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=#000000;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-211">
+          <mxGeometry x="0.293" y="3" relative="1" as="geometry">
+            <mxPoint x="-104" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-213" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-240" y="313.5" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-214" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-217">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="314" y="227.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-217" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center Portal" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="140" y="313.5" width="58" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-218" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ffffff;shape=mxgraph.mscae.intune.company_portal;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="144" y="273" width="50" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-219" value="&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;CLI access&lt;/span&gt;&lt;br style=&quot;border-color: rgb(218, 220, 224); font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;aws sso login&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="-175" y="323.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-223" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.028;entryY=0.495;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-224" target="8h5D5u195L-59-B77_7I-209">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-224" value="TeamA-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="355.51" y="631" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-225" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-156" source="8h5D5u195L-59-B77_7I-226" target="8h5D5u195L-59-B77_7I-193">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="723" />
+              <mxPoint x="540" y="392" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-226" value="TeamB-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-156">
+          <mxGeometry x="355.51" y="710" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-227" value="4-Studio Path" visible="0" parent="0" />
+        <mxCell id="8h5D5u195L-59-B77_7I-228" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-229" value="SageMaker Domain Team B" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="314" y="383" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-230" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-231" value="SageMaker Domain&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="314" y="127.75" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-232" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-234" target="8h5D5u195L-59-B77_7I-288">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-233" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-234" target="8h5D5u195L-59-B77_7I-284">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-234" value="User 1&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-100" y="221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-235" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-237" target="8h5D5u195L-59-B77_7I-288">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-236" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-237" target="8h5D5u195L-59-B77_7I-284">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-237" value="User 2&lt;br style=&quot;font-size: 13px;&quot;&gt;Team B" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-100" y="393.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-238" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="340" y="144" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-239" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="340" y="399" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-240" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-242" target="8h5D5u195L-59-B77_7I-258">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-241" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-242" target="8h5D5u195L-59-B77_7I-260">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-242" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-90" y="543" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-243" value="External&lt;br style=&quot;font-size: 13px;&quot;&gt;identity provider" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/identity/Azure_Active_Directory.svg;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="70" y="555" width="70" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-244" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-245" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-246" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-250" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-251" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-252" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-253" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-254" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-255" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-256" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-257" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-258" target="8h5D5u195L-59-B77_7I-295">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="556" />
+              <mxPoint x="-260" y="700" />
+              <mxPoint x="290" y="700" />
+              <mxPoint x="290" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-258" value="TeamA permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-210" y="543" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-259" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-260" target="8h5D5u195L-59-B77_7I-297">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="618" />
+              <mxPoint x="-250" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-260" value="TeamB permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-210" y="604.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-261" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-262" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-263" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.472;exitY=0.94;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeColor=#ffffff;" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-280" target="8h5D5u195L-59-B77_7I-265">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-264" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamB-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="627" y="367" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-265" value="managed/custom&lt;br style=&quot;font-size: 13px;&quot;&gt;RBAC policies" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/internet_of_things/Time_Series_Insights_Access_Policies.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="631.1" y="487" width="27.79" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-266" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-275" target="8h5D5u195L-59-B77_7I-280">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-267" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=-0.136;entryY=0.484;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-276" target="8h5D5u195L-59-B77_7I-264">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="448.5" as="sourcePoint" />
+            <mxPoint x="705" y="432.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="550" y="536" />
+              <mxPoint x="550" y="391" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-268" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.946;exitY=0.347;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-280" target="8h5D5u195L-59-B77_7I-245">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="293" as="sourcePoint" />
+            <mxPoint x="915" y="277" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="267" />
+              <mxPoint x="680" y="283" />
+              <mxPoint x="778" y="283" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-269" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-264" target="8h5D5u195L-59-B77_7I-246">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="563" as="sourcePoint" />
+            <mxPoint x="907" y="620" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="710" y="392" />
+              <mxPoint x="710" y="563" />
+              <mxPoint x="1075" y="563" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-270" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#3399ff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" target="8h5D5u195L-59-B77_7I-243">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="168.97" y="417" as="sourcePoint" />
+            <mxPoint x="120.00448275862047" y="603" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="168.97" y="461" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-271" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" target="8h5D5u195L-59-B77_7I-242">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="582" as="sourcePoint" />
+            <mxPoint x="-70" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-272" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#ff6200;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-238">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="233" as="sourcePoint" />
+            <mxPoint x="570" y="183" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-273" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-272">
+          <mxGeometry x="0.0264" y="-1" relative="1" as="geometry">
+            <mxPoint x="-1" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-274" value="" style="endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#ff6200;jumpSize=6;strokeWidth=3;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-239">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="436.90999999999997" as="sourcePoint" />
+            <mxPoint x="570" y="438" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-275" value="TeamA-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="355.52" y="261" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-276" value="TeamB-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="355.52" y="514.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-280" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamA-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="627" y="249.25" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-281" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-284" target="8h5D5u195L-59-B77_7I-289">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310" y="323" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-260" y="355" />
+              <mxPoint x="-260" y="193" />
+              <mxPoint x="169" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-282" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ff6200;strokeWidth=3;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-284" target="8h5D5u195L-59-B77_7I-230">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="344" />
+              <mxPoint x="-260" y="63" />
+              <mxPoint x="930" y="63" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-283" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;with kubectl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=#000000;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-282">
+          <mxGeometry x="0.293" y="3" relative="1" as="geometry">
+            <mxPoint x="-104" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-284" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-240" y="313.5" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-285" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-288" target="8h5D5u195L-59-B77_7I-231">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-286" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-288" target="8h5D5u195L-59-B77_7I-231">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-287" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-288" target="8h5D5u195L-59-B77_7I-229">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-288" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center Portal" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="140" y="313.5" width="58" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-289" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ffffff;shape=mxgraph.mscae.intune.company_portal;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="144" y="273" width="50" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-290" value="&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;CLI access&lt;/span&gt;&lt;br style=&quot;border-color: rgb(218, 220, 224); font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;aws sso login&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="-175" y="323.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-293" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="498.99551113190984" y="455.50349805714666" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-294" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.028;entryY=0.495;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-295" target="8h5D5u195L-59-B77_7I-280">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-295" value="TeamA-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="355.51" y="631" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-296" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-227" source="8h5D5u195L-59-B77_7I-297" target="8h5D5u195L-59-B77_7I-264">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="723" />
+              <mxPoint x="540" y="392" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-297" value="TeamB-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-227">
+          <mxGeometry x="355.51" y="710" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-298" value="5-Storage" visible="0" parent="0" />
+        <mxCell id="8h5D5u195L-59-B77_7I-299" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-300" value="SageMaker Domain Team B" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="314" y="383" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-301" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-302" value="SageMaker Domain&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="314" y="127.75" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-303" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-305" target="8h5D5u195L-59-B77_7I-359">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-304" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-305" target="8h5D5u195L-59-B77_7I-355">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-305" value="User 1&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-100" y="221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-306" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-308" target="8h5D5u195L-59-B77_7I-359">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-307" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-308" target="8h5D5u195L-59-B77_7I-355">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-308" value="User 2&lt;br style=&quot;font-size: 13px;&quot;&gt;Team B" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-100" y="393.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-309" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="340" y="144" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-310" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="340" y="399" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-311" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-313" target="8h5D5u195L-59-B77_7I-329">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-312" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-313" target="8h5D5u195L-59-B77_7I-331">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-313" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-90" y="543" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-314" value="External&lt;br style=&quot;font-size: 13px;&quot;&gt;identity provider" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/identity/Azure_Active_Directory.svg;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="70" y="555" width="70" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-315" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-316" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-317" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-321" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-322" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-323" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-324" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-325" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-326" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-327" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-328" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-329" target="8h5D5u195L-59-B77_7I-366">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="556" />
+              <mxPoint x="-260" y="700" />
+              <mxPoint x="290" y="700" />
+              <mxPoint x="290" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-329" value="TeamA permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-210" y="543" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-330" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-331" target="8h5D5u195L-59-B77_7I-368">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="618" />
+              <mxPoint x="-250" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-331" value="TeamB permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-210" y="604.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-332" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-333" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-334" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.472;exitY=0.94;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeColor=#ffffff;" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-351" target="8h5D5u195L-59-B77_7I-336">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-335" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamB-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="627" y="367" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-336" value="managed/custom&lt;br style=&quot;font-size: 13px;&quot;&gt;RBAC policies" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/internet_of_things/Time_Series_Insights_Access_Policies.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="631.1" y="487" width="27.79" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-337" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-346" target="8h5D5u195L-59-B77_7I-351">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-338" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=-0.136;entryY=0.484;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-347" target="8h5D5u195L-59-B77_7I-335">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="448.5" as="sourcePoint" />
+            <mxPoint x="705" y="432.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="550" y="536" />
+              <mxPoint x="550" y="391" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-339" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.946;exitY=0.347;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-351" target="8h5D5u195L-59-B77_7I-316">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="293" as="sourcePoint" />
+            <mxPoint x="915" y="277" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="267" />
+              <mxPoint x="680" y="283" />
+              <mxPoint x="778" y="283" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-340" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-335" target="8h5D5u195L-59-B77_7I-317">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="563" as="sourcePoint" />
+            <mxPoint x="907" y="620" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="710" y="392" />
+              <mxPoint x="710" y="563" />
+              <mxPoint x="1075" y="563" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-341" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#3399ff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" target="8h5D5u195L-59-B77_7I-314">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="168.97" y="417" as="sourcePoint" />
+            <mxPoint x="120.00448275862047" y="603" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="168.97" y="461" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-342" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" target="8h5D5u195L-59-B77_7I-313">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="582" as="sourcePoint" />
+            <mxPoint x="-70" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-343" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#ff6200;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-309">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="233" as="sourcePoint" />
+            <mxPoint x="570" y="183" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-344" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-343">
+          <mxGeometry x="0.0264" y="-1" relative="1" as="geometry">
+            <mxPoint x="-1" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-345" value="" style="endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#ff6200;jumpSize=6;strokeWidth=3;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-310">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="436.90999999999997" as="sourcePoint" />
+            <mxPoint x="570" y="438" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-346" value="TeamA-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="355.52" y="261" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-347" value="TeamB-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="355.52" y="514.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-348" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fsx_for_lustre;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="570" y="623" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-349" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;FSx for Lustre/OpenZFS file system(s)&lt;/span&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;/fsx/TeamA ... /fsx/TeamB&amp;nbsp; (per-team shared directories)&lt;br style=&quot;font-size: 14px;&quot;&gt;/home/User1 ... /home/User2 (per-user home directories)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8900fd;strokeColor=none;fontSize=14;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="640" y="623" width="650" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-350" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="951" y="623" as="sourcePoint" />
+            <mxPoint x="950.73" y="583" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-351" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamA-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="627" y="249.25" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-352" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-355" target="8h5D5u195L-59-B77_7I-360">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310" y="323" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-260" y="355" />
+              <mxPoint x="-260" y="193" />
+              <mxPoint x="169" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-353" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ff6200;strokeWidth=3;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-355" target="8h5D5u195L-59-B77_7I-301">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="344" />
+              <mxPoint x="-260" y="63" />
+              <mxPoint x="930" y="63" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-354" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;with kubectl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=#000000;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-353">
+          <mxGeometry x="0.293" y="3" relative="1" as="geometry">
+            <mxPoint x="-104" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-355" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-240" y="313.5" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-356" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-359" target="8h5D5u195L-59-B77_7I-302">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-357" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-359" target="8h5D5u195L-59-B77_7I-302">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-358" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-359" target="8h5D5u195L-59-B77_7I-300">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-359" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center Portal" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="140" y="313.5" width="58" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-360" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ffffff;shape=mxgraph.mscae.intune.company_portal;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="144" y="273" width="50" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-361" value="&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;CLI access&lt;/span&gt;&lt;br style=&quot;border-color: rgb(218, 220, 224); font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;aws sso login&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="-175" y="323.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-362" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="570" y="720" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-363" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Per-team or shared S3 buckets&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8900fd;strokeColor=none;fontSize=14;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="640" y="720" width="650" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-364" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="498.99551113190984" y="455.50349805714666" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-365" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.028;entryY=0.495;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-366" target="8h5D5u195L-59-B77_7I-351">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-366" value="TeamA-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="355.51" y="631" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-367" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-298" source="8h5D5u195L-59-B77_7I-368" target="8h5D5u195L-59-B77_7I-335">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="723" />
+              <mxPoint x="540" y="392" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-368" value="TeamB-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-298">
+          <mxGeometry x="355.51" y="710" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-369" value="6-Task Governance" visible="0" parent="0" />
+        <mxCell id="8h5D5u195L-59-B77_7I-370" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=#000000;gradientColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-282" y="36" width="1612" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-371" value="SageMaker Domain Team B" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="314" y="383" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-372" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;fontColor=#333333;strokeColor=none;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="570" y="127" width="720" height="456" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-373" value="SageMaker Domain&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=top;align=center;verticalAlign=bottom;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=none;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="314" y="127.75" width="130" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-374" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-376" target="8h5D5u195L-59-B77_7I-430">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="333" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-375" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-376" target="8h5D5u195L-59-B77_7I-426">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-376" value="User 1&lt;br style=&quot;font-size: 13px;&quot;&gt;Team A" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-100" y="221" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-377" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-379" target="8h5D5u195L-59-B77_7I-430">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-20" y="355" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-378" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-379" target="8h5D5u195L-59-B77_7I-426">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-379" value="User 2&lt;br style=&quot;font-size: 13px;&quot;&gt;Team B" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#ffffff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-100" y="393.5" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-380" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="340" y="144" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-381" value="SageMaker Studio&lt;br style=&quot;font-size: 13px;&quot;&gt;GUI" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="340" y="399" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-382" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-384" target="8h5D5u195L-59-B77_7I-400">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-383" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-384" target="8h5D5u195L-59-B77_7I-402">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-384" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-90" y="543" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-385" value="External&lt;br style=&quot;font-size: 13px;&quot;&gt;identity provider" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/identity/Azure_Active_Directory.svg;verticalAlign=top;labelPosition=center;verticalLabelPosition=bottom;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="70" y="555" width="70" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-386" value="&lt;span style=&quot;font-size: 13px;&quot;&gt;HyperPod EKS&lt;br style=&quot;font-size: 13px;&quot;&gt;cluster&lt;/span&gt;" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=none;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="1200" y="77" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-387" value="Namespace A&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team A)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#0578ff;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="720" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-388" value="Namespace B&lt;br style=&quot;font-size: 13px;&quot;&gt;(Team B)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;dashed=1;dashPattern=1 1;fillColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;fontColor=#ffffff;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="960" y="311" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-389" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-391" target="8h5D5u195L-59-B77_7I-388">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-390" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-391" target="8h5D5u195L-59-B77_7I-387">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-391" value="HyperPod Task Governance" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3c300;strokeColor=none;fontColor=#404040;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="720" y="221" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-392" value="HyperPod Observability" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#808080;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=15;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="720" y="171" width="470" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-393" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="730" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-394" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="730" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-395" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="730" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-396" value="HyperPod space" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="970" y="358.5" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-397" value="HyperPod PyTorch job" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="970" y="411" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-398" value="HyperPod Inference endpoint" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#404040;strokeColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=14;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="970" y="462" width="210" height="42.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-399" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-400" target="8h5D5u195L-59-B77_7I-437">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="556" />
+              <mxPoint x="-260" y="700" />
+              <mxPoint x="290" y="700" />
+              <mxPoint x="290" y="644" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-400" value="TeamA permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-210" y="543" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-401" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-402" target="8h5D5u195L-59-B77_7I-439">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="618" />
+              <mxPoint x="-250" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-402" value="TeamB permission set" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-210" y="604.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-403" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;fontColor=#333333;strokeColor=#ff6200;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeWidth=4;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="590" y="151" width="110" height="426" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-404" value="EKS" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="620" y="133" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-405" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.472;exitY=0.94;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1;strokeColor=#ffffff;" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-422" target="8h5D5u195L-59-B77_7I-407">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-406" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamB-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="627" y="367" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-407" value="managed/custom&lt;br style=&quot;font-size: 13px;&quot;&gt;RBAC policies" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/azure2/internet_of_things/Time_Series_Insights_Access_Policies.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="631.1" y="487" width="27.79" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-408" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-417" target="8h5D5u195L-59-B77_7I-422">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-409" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=-0.136;entryY=0.484;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-418" target="8h5D5u195L-59-B77_7I-406">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="448.5" as="sourcePoint" />
+            <mxPoint x="705" y="432.5" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="550" y="536" />
+              <mxPoint x="550" y="391" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-410" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.946;exitY=0.347;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-422" target="8h5D5u195L-59-B77_7I-387">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="293" as="sourcePoint" />
+            <mxPoint x="915" y="277" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="267" />
+              <mxPoint x="680" y="283" />
+              <mxPoint x="778" y="283" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-411" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-406" target="8h5D5u195L-59-B77_7I-388">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="790" y="563" as="sourcePoint" />
+            <mxPoint x="907" y="620" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="710" y="392" />
+              <mxPoint x="710" y="563" />
+              <mxPoint x="1075" y="563" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-412" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeColor=#3399ff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" target="8h5D5u195L-59-B77_7I-385">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="168.97" y="417" as="sourcePoint" />
+            <mxPoint x="120.00448275862047" y="603" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="168.97" y="461" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-413" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" target="8h5D5u195L-59-B77_7I-384">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="582" as="sourcePoint" />
+            <mxPoint x="-70" y="582" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-414" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;strokeColor=#ff6200;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-380">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="520" y="233" as="sourcePoint" />
+            <mxPoint x="570" y="183" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-415" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-414">
+          <mxGeometry x="0.0264" y="-1" relative="1" as="geometry">
+            <mxPoint x="-1" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-416" value="" style="endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#ff6200;jumpSize=6;strokeWidth=3;labelBackgroundColor=none;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-381">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="475" y="436.90999999999997" as="sourcePoint" />
+            <mxPoint x="570" y="438" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-417" value="TeamA-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="355.52" y="261" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-418" value="TeamB-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(Studio exec role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="355.52" y="514.5" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-419" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.fsx_for_lustre;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="570" y="623" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-420" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;FSx for Lustre/OpenZFS file system(s)&lt;/span&gt;&lt;br style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;/fsx/TeamA ... /fsx/TeamB&amp;nbsp; (per-team shared directories)&lt;br style=&quot;font-size: 14px;&quot;&gt;/home/User1 ... /home/User2 (per-user home directories)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8900fd;strokeColor=none;fontSize=14;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="640" y="623" width="650" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-421" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="951" y="623" as="sourcePoint" />
+            <mxPoint x="950.73" y="583" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-422" value="Access Entry&lt;br style=&quot;font-size: 13px;&quot;&gt;for TeamA-role" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=13;image=img/lib/mscae/Security_Center.svg;labelBackgroundColor=#404040;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="627" y="249.25" width="36" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-423" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-426" target="8h5D5u195L-59-B77_7I-431">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310" y="323" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="-260" y="355" />
+              <mxPoint x="-260" y="193" />
+              <mxPoint x="169" y="193" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-424" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#ff6200;strokeWidth=3;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-426" target="8h5D5u195L-59-B77_7I-372">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-260" y="344" />
+              <mxPoint x="-260" y="63" />
+              <mxPoint x="930" y="63" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-425" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;with kubectl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=#000000;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-424">
+          <mxGeometry x="0.293" y="3" relative="1" as="geometry">
+            <mxPoint x="-104" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-426" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=13;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-240" y="313.5" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-427" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-430" target="8h5D5u195L-59-B77_7I-373">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-428" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-430" target="8h5D5u195L-59-B77_7I-373">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-429" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-430" target="8h5D5u195L-59-B77_7I-371">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-430" value="AWS IAM&lt;br style=&quot;font-size: 13px;&quot;&gt;Identity Center Portal" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#ffffff;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.single_sign_on;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="140" y="313.5" width="58" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-431" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ffffff;shape=mxgraph.mscae.intune.company_portal;fontColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="144" y="273" width="50" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-432" value="&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;CLI access&lt;/span&gt;&lt;br style=&quot;border-color: rgb(218, 220, 224); font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;font-family: Helvetica; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;aws sso login&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="-175" y="323.5" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-433" value="" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="570" y="720" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-434" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;Per-team or shared S3 buckets&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#8900fd;strokeColor=none;fontSize=14;fontColor=#ffffff;fontFamily=Amazon Ember;fontStyle=1" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="640" y="720" width="650" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-435" value="Task submission&lt;br style=&quot;font-size: 13px;&quot;&gt;from GUI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;fontColor=#ffffff;labelBackgroundColor=none;fontFamily=Amazon Ember;fontStyle=1" vertex="1" connectable="0" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="498.99551113190984" y="455.50349805714666" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-436" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.028;entryY=0.495;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-437" target="8h5D5u195L-59-B77_7I-422">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-437" value="TeamA-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="355.51" y="631" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-438" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#ffffff;fontFamily=Amazon Ember;fontSize=13;fontStyle=1" edge="1" parent="8h5D5u195L-59-B77_7I-369" source="8h5D5u195L-59-B77_7I-439" target="8h5D5u195L-59-B77_7I-406">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="723" />
+              <mxPoint x="540" y="392" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8h5D5u195L-59-B77_7I-439" value="TeamB-permissionset-role&lt;br style=&quot;font-size: 13px;&quot;&gt;(CLI/Console role)" style="sketch=0;outlineConnect=0;fontColor=#ffffff;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=13;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;fontFamily=Amazon Ember;" vertex="1" parent="8h5D5u195L-59-B77_7I-369">
+          <mxGeometry x="355.51" y="710" width="46.97" height="26.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

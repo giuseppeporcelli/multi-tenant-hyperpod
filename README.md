@@ -10,8 +10,8 @@ Both architectures leverage AWS IAM Identity Center for centralized authenticati
 ## Repository Contents
 
 ```
-multi-tenant-hyperpod-eks-blog.md   # Full walkthrough for the EKS-based architecture
-multi-tenant-hyperpod-slurm-blog.md # Full walkthrough for the Slurm-based architecture
+multi-tenant-hyperpod-eks.md   # Full walkthrough for the EKS-based architecture
+multi-tenant-hyperpod-slurm.md # Full walkthrough for the Slurm-based architecture
 diagrams/                           # Draw.io source files for architecture diagrams
 images/                             # Architecture diagram images
 scripts/                            # Helper scripts for user/group provisioning
